@@ -184,3 +184,5 @@ C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness.Web\bin\De
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness.Web\obj\Debug\netcoreapp3.1\ApplicationFitness.Web.csproj.CoreCompileInputs.cache
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness.Web\obj\Debug\netcoreapp3.1\ApplicationFitness.Web.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness.Web\obj\Debug\netcoreapp3.1\ApplicationFitness.Web.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness.Web\bin\Debug\netcoreapp3.1\ApplicationFitness.Domain.dll
+C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness.Web\bin\Debug\netcoreapp3.1\ApplicationFitness.Domain.pdb
