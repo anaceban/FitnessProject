@@ -8,7 +8,7 @@ namespace ApplicationFitness.Domain.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public int YearOfBirth { get; set; }
         
         public int Weight { get; set; }
         public int Height { get; set; }

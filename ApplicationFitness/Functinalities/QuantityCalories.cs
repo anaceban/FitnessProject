@@ -12,9 +12,9 @@ namespace ApplicationFitness.Functinalities
         {
             if(user.Gender == "Woman")
             {
-                return ((10 * user.Weight) + (6.25 * user.Height) + (5 * (DateTime.Now.Year - user.DateOfBirth.Year)) - 161);
+                return ((10 * user.Weight) + (6.25 * user.Height) + (5 * (DateTime.Now.Year - user.YearOfBirth)) - 161);
             }
-            else return ((10 * user.Weight) + (6.25 * user.Height) + (DateTime.Now.Year - user.DateOfBirth.Year) + 5);
+            else return ((10 * user.Weight) + (6.25 * user.Height) + (DateTime.Now.Year - user.YearOfBirth) + 5);
         }
     }
 }
