@@ -1,5 +1,4 @@
 ﻿using ApplicationFitness.Web.Areas.Identity.Data;
-using ApplicationFitness.Web.Data;
 using ApplicationFitness.Web.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,8 +10,8 @@ namespace ApplicationFitness.Web.Repositories
 {
     public class Repository <T> : IRepository<T> where T : class
     {
-        protected readonly ApplicationDbContext _context;
-        public Repository(ApplicationDbContext context)
+        protected readonly ApplicationFitnessWebContext _context;
+        public Repository(ApplicationFitnessWebContext context)
         {
             _context = context;
         }

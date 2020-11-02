@@ -22,4 +22,8 @@
     <ProjectReference Include="..\ApplicationFitness.Core\ApplicationFitness.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>

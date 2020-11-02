@@ -1,6 +1,5 @@
 ﻿using ApplicationFitness.Domain.Models;
 using ApplicationFitness.Web.Areas.Identity.Data;
-using ApplicationFitness.Web.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,7 @@ namespace ApplicationFitness.Web.Repositories.Implemintation
 {
     public class UserRepository : Repository<User>
     {
-        public UserRepository(ApplicationDbContext context) : base(context)
+        public UserRepository(ApplicationFitnessWebContext context) : base(context)
         {
 
         }
