@@ -27,7 +27,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ApplicationFitness.Core\ApplicationFitness.Domain.csproj" />
     <ProjectReference Include="..\ApplicationFitness.Domain\ApplicationFitness.Infrastacture.csproj" />
-    <ProjectReference Include="..\ApplicationFitness.Web\ApplicationFitness.Web.csproj" />
   </ItemGroup>
 
 </Project>

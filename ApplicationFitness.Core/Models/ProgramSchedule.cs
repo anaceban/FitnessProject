@@ -9,7 +9,7 @@ namespace ApplicationFitness.Domain.Models
         public List<ProgramDay> ProgramWeek { get; set; }
 
         public ProgramType ProgramType { get; set; }
-        public int ProgramTypeId { get; set; }
+        public int? ProgramTypeId { get; set; }
         public string FitnessProgramDescription { get; set; }
         public string NutritionProgramDescription { get; set; }
         public string FitnessProgramName { get; set; }
