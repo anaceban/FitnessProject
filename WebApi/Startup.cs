@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApplicationFitness;
+using ApplicationFitness.Domain.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +16,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using WebApi.Dtos;
+using WebApi.Identity;
 using WebApi.Mappings;
 using WebApi.Repositories;
 using WebApi.Services;
@@ -37,18 +41,22 @@ namespace WebApi
                 optionBuilder.UseSqlServer(Configuration.GetConnectionString("DbConnection"));
             });
 
+            //services.AddDbContext<IdentityFitnessContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DbIdentity")));
+            //services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<IdentityFitnessContext>();
+
             var mapperConfig = new MapperConfiguration(m =>
             {
-                m.AddProfile(new ProgramScheduleMappingProfile());
+                m.AddProfile(new MappingProfile());
             });
 
             ConfigureSwagger(services);
             services.AddControllers();
-
             services.AddSingleton(mapperConfig.CreateMapper());
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IProgramScheduleService, ProgramScheduleService>();
-
+            services.AddScoped<IProgramTypeService, ProgramTypeService>();
+            services.AddScoped<IUserReviewService, UserReviewService>();
         }
         private void ConfigureSwagger(IServiceCollection services)
         {
@@ -93,7 +101,7 @@ namespace WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(c =>

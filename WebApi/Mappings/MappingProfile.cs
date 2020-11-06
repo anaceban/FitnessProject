@@ -8,11 +8,13 @@ using AutoMapper;
 
 namespace WebApi.Mappings
 {
-    public class ProgramScheduleMappingProfile : Profile
+    public class MappingProfile : Profile
     {
-        public ProgramScheduleMappingProfile()
+        public MappingProfile()
         {
             CreateMap<ProgramSchedule, ProgramScheduleDto>();
+            CreateMap<ProgramType, ProgramTypeDto>();
+            CreateMap<ReviewDto, Review>();
         }
     }
 }

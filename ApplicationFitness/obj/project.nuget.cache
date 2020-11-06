@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ttMX2nCEectaXLtSPjEYWHpzu5JHgrWJcIWLVV/eksdmdpr9N9huBlpJxww19j2Y+qciwhh2Az9pQBAwWauUDA==",
+  "dgSpecHash": "BUj0c4ezWnt+RgLMUguT6M4H2JWXpuHeMNuef+Lay3iJqcBEmjU0qsyAcLwDbRl9DuY/rOFwywwLHeu9k2PKUA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness\\ApplicationFitness.csproj",
+  "projectFilePath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness\\ApplicationFitness.Infrastracture.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
@@ -30,10 +30,10 @@
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.9\\microsoft.extensions.primitives.3.1.9.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.identity.client\\3.0.8\\microsoft.identity.client.3.0.8.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\5.5.0\\microsoft.identitymodel.jsonwebtokens.5.5.0.nupkg.sha512",
-    "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.identitymodel.logging\\6.8.0\\microsoft.identitymodel.logging.6.8.0.nupkg.sha512",
+    "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.identitymodel.logging\\5.5.0\\microsoft.identitymodel.logging.5.5.0.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.identitymodel.protocols\\5.5.0\\microsoft.identitymodel.protocols.5.5.0.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\5.5.0\\microsoft.identitymodel.protocols.openidconnect.5.5.0.nupkg.sha512",
-    "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.8.0\\microsoft.identitymodel.tokens.6.8.0.nupkg.sha512",
+    "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.identitymodel.tokens\\5.5.0\\microsoft.identitymodel.tokens.5.5.0.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",

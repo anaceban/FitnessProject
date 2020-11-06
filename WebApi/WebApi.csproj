@@ -10,8 +10,12 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational.Design" Version="1.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
       <PrivateAssets>all</PrivateAssets>
@@ -24,7 +28,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ApplicationFitness.Core\ApplicationFitness.Domain.csproj" />
-    <ProjectReference Include="..\ApplicationFitness\ApplicationFitness.csproj" />
+    <ProjectReference Include="..\ApplicationFitness.Domain\ApplicationFitnessCore.csproj" />
+    <ProjectReference Include="..\ApplicationFitness\ApplicationFitness.Infrastracture.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Identity\Login\" />
+    <Folder Include="Identity\NewFolder\" />
   </ItemGroup>
 
 

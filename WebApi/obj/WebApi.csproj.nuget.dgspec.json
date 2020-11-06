@@ -79,12 +79,12 @@
         }
       }
     },
-    "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Domain\\ApplicationFitness.Infrastacture.csproj": {
+    "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Domain\\ApplicationFitnessCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Domain\\ApplicationFitness.Infrastacture.csproj",
-        "projectName": "ApplicationFitness.Infrastacture",
-        "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Domain\\ApplicationFitness.Infrastacture.csproj",
+        "projectUniqueName": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Domain\\ApplicationFitnessCore.csproj",
+        "projectName": "ApplicationFitnessCore",
+        "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Domain\\ApplicationFitnessCore.csproj",
         "packagesPath": "C:\\Users\\ana.ceban\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Domain\\obj\\",
         "projectStyle": "PackageReference",
@@ -113,10 +113,6 @@
       "frameworks": {
         "netstandard2.0": {
           "dependencies": {
-            "Microsoft.IdentityModel.Tokens": {
-              "target": "Package",
-              "version": "[6.8.0, )"
-            },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",
@@ -138,12 +134,12 @@
         }
       }
     },
-    "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness\\ApplicationFitness.csproj": {
+    "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness\\ApplicationFitness.Infrastracture.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness\\ApplicationFitness.csproj",
-        "projectName": "ApplicationFitness",
-        "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness\\ApplicationFitness.csproj",
+        "projectUniqueName": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness\\ApplicationFitness.Infrastracture.csproj",
+        "projectName": "ApplicationFitness.Infrastracture",
+        "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness\\ApplicationFitness.Infrastracture.csproj",
         "packagesPath": "C:\\Users\\ana.ceban\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness\\obj\\",
         "projectStyle": "PackageReference",
@@ -164,8 +160,8 @@
               "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Core\\ApplicationFitness.Domain.csproj": {
                 "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Core\\ApplicationFitness.Domain.csproj"
               },
-              "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Domain\\ApplicationFitness.Infrastacture.csproj": {
-                "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Domain\\ApplicationFitness.Infrastacture.csproj"
+              "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Domain\\ApplicationFitnessCore.csproj": {
+                "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Domain\\ApplicationFitnessCore.csproj"
               }
             }
           }
@@ -253,8 +249,11 @@
               "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Core\\ApplicationFitness.Domain.csproj": {
                 "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Core\\ApplicationFitness.Domain.csproj"
               },
-              "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness\\ApplicationFitness.csproj": {
-                "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness\\ApplicationFitness.csproj"
+              "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Domain\\ApplicationFitnessCore.csproj": {
+                "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Domain\\ApplicationFitnessCore.csproj"
+              },
+              "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness\\ApplicationFitness.Infrastracture.csproj": {
+                "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness\\ApplicationFitness.Infrastracture.csproj"
               }
             }
           }
@@ -272,13 +271,19 @@
               "target": "Package",
               "version": "[10.1.1, )"
             },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.1.9, )"
             },
-            "Microsoft.EntityFrameworkCore.Relational.Design": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[1.1.6, )"
+              "version": "[3.1.9, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
