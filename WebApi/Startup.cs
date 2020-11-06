@@ -57,6 +57,7 @@ namespace WebApi
             services.AddScoped<IProgramScheduleService, ProgramScheduleService>();
             services.AddScoped<IProgramTypeService, ProgramTypeService>();
             services.AddScoped<IUserReviewService, UserReviewService>();
+            services.AddScoped<IUserService, UserService>();
         }
         private void ConfigureSwagger(IServiceCollection services)
         {

@@ -15,6 +15,7 @@ namespace WebApi.Mappings
             CreateMap<ProgramSchedule, ProgramScheduleDto>();
             CreateMap<ProgramType, ProgramTypeDto>();
             CreateMap<ReviewDto, Review>();
+            CreateMap<User, UserDto>();
         }
     }
 }

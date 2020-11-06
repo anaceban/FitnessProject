@@ -5,63 +5,78 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Dtos;
 using WebApi.Identity.Register;
 using WebApi.Repositories;
 
 namespace WebApi.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly FitnessAppContext _context;
         public UserService(FitnessAppContext context)
         {
             _context = context;
         }
-        public User Authenticate(string username, string password)
+        
+        public User Create(UserDto user)
         {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
-                return null;
+            var _user = new User
+            {
+                Email = user.Email,
+                PasswordHash = user.Password,
+                UserName = user.Name,
+                Weight = user.Weight,
+                Height = user.Height,
+                Gender = user.Gender,
+                PrimaryGoal = user.PrimaryGoal,
+                LevelOfFitnessExperience = user.LevelOfFitnessExperience,
+                YearOfBirth = user.YearOfBirth
+            };
+            _context.Users.Add(_user);
+            _context.SaveChanges();
+            return _user;
+        }
 
-            var user = _context.Users.SingleOrDefault(x => x.UserName == username);
-
-            // check if username exists
+        public bool Delete(int id)
+        {
+            var user = _context.Users.Find(id);
             if (user == null)
-                return null;
-            // authentication successful
-            return user;
+            {
+                return false; 
+            }
+            else _context.Users.Remove(user);
+            _context.SaveChanges();
+            return true;
+
         }
-        public IEnumerable<User> GetAll()
+
+        public IList<User> GetAll()
         {
-            return _context.Users;
+            return _context.Users.ToList();
         }
+
         public User GetById(int id)
         {
             return _context.Users.Find(id);
         }
-        public User Create(User user, string password)
+
+        public User Update(UserDto user, int id)
         {
-            // validation
-            if (string.IsNullOrWhiteSpace(password))
-                throw new Exception("Password is required");
-
-            if (_context.Users.Any(x => x.UserName == user.UserName))
-                throw new Exception("Username \"" + user.UserName + "\" is already taken");
-
-            
-
-            _context.Users.Add(user);
-            _context.SaveChanges();
-
-            return user;
-        }
-        public void Delete(int id)
-        {
-            var user = _context.Users.Find(id);
-            if (user != null)
+            var _user = _context.Users.Find(id);
+            if(user == null)
             {
-                _context.Users.Remove(user);
-                _context.SaveChanges();
+                throw new Exception("User not found");
             }
+            _user.UserName = user.Name;
+            _user.Weight = user.Weight;
+            _user.Height = user.Height;
+            _user.Gender = user.Gender;
+            _user.PrimaryGoal = user.PrimaryGoal;
+            _user.LevelOfFitnessExperience = user.LevelOfFitnessExperience;
+            _user.YearOfBirth = user.YearOfBirth;
+            _context.SaveChanges();
+            return _user;
         }
     }
 }
