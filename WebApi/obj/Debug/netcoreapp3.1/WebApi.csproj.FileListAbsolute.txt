@@ -71,12 +71,13 @@ C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\bin\Debug\netcoreapp3.
 C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
 C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
-C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\obj\Debug\netcoreapp3.1\WebApi.csproj.CoreCompileInputs.cache
-C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\obj\Debug\netcoreapp3.1\WebApi.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\bin\Debug\netcoreapp3.1\ApplicationFitness.Infrastracture.exe
 C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\bin\Debug\netcoreapp3.1\ApplicationFitness.Infrastracture.dll
 C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\bin\Debug\netcoreapp3.1\ApplicationFitness.Infrastracture.pdb
 C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\bin\Debug\netcoreapp3.1\ApplicationFitnessCore.dll
 C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\bin\Debug\netcoreapp3.1\ApplicationFitnessCore.pdb
 C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\bin\Debug\netcoreapp3.1\ApplicationFitnessCore.dll.config
+C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\bin\Debug\netcoreapp3.1\linq2db.dll
+C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\obj\Debug\netcoreapp3.1\WebApi.csproj.CoreCompileInputs.cache
 C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\obj\Debug\netcoreapp3.1\WebApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\obj\Debug\netcoreapp3.1\WebApi.MvcApplicationPartsAssemblyInfo.cache

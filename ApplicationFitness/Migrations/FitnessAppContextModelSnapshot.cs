@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ApplicationFitness.Migrations
+namespace ApplicationFitness.Infrastracture.Migrations
 {
     [DbContext(typeof(FitnessAppContext))]
     partial class FitnessAppContextModelSnapshot : ModelSnapshot
@@ -18,6 +18,136 @@ namespace ApplicationFitness.Migrations
                 .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("ApplicationFitness.Domain.Models.Auth.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("Roles","Auth");
+                });
+
+            modelBuilder.Entity("ApplicationFitness.Domain.Models.Auth.RoleClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("RoleClaims","Auth");
+                });
+
+            modelBuilder.Entity("ApplicationFitness.Domain.Models.Auth.UserClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserClaims","Auth");
+                });
+
+            modelBuilder.Entity("ApplicationFitness.Domain.Models.Auth.UserLogin", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserLogins","Auth");
+                });
+
+            modelBuilder.Entity("ApplicationFitness.Domain.Models.Auth.UserRole", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRole","Auth");
+                });
+
+            modelBuilder.Entity("ApplicationFitness.Domain.Models.Auth.UserToken", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("UserRoles","Auth");
+                });
 
             modelBuilder.Entity("ApplicationFitness.Domain.Models.Dish", b =>
                 {
@@ -133,23 +263,7 @@ namespace ApplicationFitness.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Review");
-                });
-
-            modelBuilder.Entity("ApplicationFitness.Domain.Models.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Role");
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("ApplicationFitness.Domain.Models.User", b =>
@@ -159,15 +273,19 @@ namespace ApplicationFitness.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
@@ -175,29 +293,59 @@ namespace ApplicationFitness.Migrations
                     b.Property<int>("Height")
                         .HasColumnType("int");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                    b.Property<string>("LevelOfFitnessExperience")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PrimaryGoal")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
 
                     b.Property<int>("Weight")
                         .HasColumnType("int");
 
-                    b.Property<int>("YearOfBirth")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
 
-                    b.ToTable("Users");
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("Users","Auth");
                 });
 
             modelBuilder.Entity("ApplicationFitness.Domain.Models.UserSchedule", b =>
@@ -213,6 +361,57 @@ namespace ApplicationFitness.Migrations
                     b.HasIndex("ProgramScheduleId");
 
                     b.ToTable("UsersPrograms");
+                });
+
+            modelBuilder.Entity("ApplicationFitness.Domain.Models.Auth.RoleClaim", b =>
+                {
+                    b.HasOne("ApplicationFitness.Domain.Models.Auth.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ApplicationFitness.Domain.Models.Auth.UserClaim", b =>
+                {
+                    b.HasOne("ApplicationFitness.Domain.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ApplicationFitness.Domain.Models.Auth.UserLogin", b =>
+                {
+                    b.HasOne("ApplicationFitness.Domain.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ApplicationFitness.Domain.Models.Auth.UserRole", b =>
+                {
+                    b.HasOne("ApplicationFitness.Domain.Models.Auth.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ApplicationFitness.Domain.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ApplicationFitness.Domain.Models.Auth.UserToken", b =>
+                {
+                    b.HasOne("ApplicationFitness.Domain.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ApplicationFitness.Domain.Models.DishDay", b =>
@@ -251,15 +450,6 @@ namespace ApplicationFitness.Migrations
                     b.HasOne("ApplicationFitness.Domain.Models.User", "User")
                         .WithMany("Reviews")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ApplicationFitness.Domain.Models.User", b =>
-                {
-                    b.HasOne("ApplicationFitness.Domain.Models.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

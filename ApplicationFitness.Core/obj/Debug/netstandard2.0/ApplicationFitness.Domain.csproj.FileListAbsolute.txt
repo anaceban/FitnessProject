@@ -6,4 +6,3 @@ C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness.Core\obj\D
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness.Core\obj\Debug\netstandard2.0\ApplicationFitness.Domain.AssemblyInfo.cs
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness.Core\obj\Debug\netstandard2.0\ApplicationFitness.Domain.dll
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness.Core\obj\Debug\netstandard2.0\ApplicationFitness.Domain.pdb
-C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness.Core\obj\Debug\netstandard2.0\ApplicationFitness.Domain.csproj.CoreCompileInputs.cache

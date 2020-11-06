@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ApplicationFitness.Domain.Models;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,11 @@ namespace WebApi.Services
 {
     public interface IUserService
     {
-        IList<IdentityUser> GetUsers();
-
-        IdentityUser GetUserById(int id);
-
-        IdentityUser AddNewUser(RegisterViewModel registerViewModel);
-
-        IdentityUser UpdateUserDetails(int id, RegisterViewModel registerViewModel);
-
-        IdentityUser UpdateUser(int id, RegisterViewModel registerViewModel);
-
-        bool RemoveUserById(int id);
+        User Authenticate(string username, string password);
+        IList<User> GetAll();
+        User GetById(int id);
+        User Create(User user, string password);
+        void Update(User user, string password = null);
+        void Delete(int id);
     }
 }

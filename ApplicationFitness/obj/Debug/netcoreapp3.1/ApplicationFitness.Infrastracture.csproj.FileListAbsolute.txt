@@ -59,7 +59,6 @@ C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\bin\Debug\
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\obj\Debug\netcoreapp3.1\ApplicationFitness.Infrastracture.csprojAssemblyReference.cache
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\obj\Debug\netcoreapp3.1\ApplicationFitness.Infrastracture.AssemblyInfoInputs.cache
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\obj\Debug\netcoreapp3.1\ApplicationFitness.Infrastracture.AssemblyInfo.cs
-C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\obj\Debug\netcoreapp3.1\ApplicationFitness.Infrastracture.csproj.CoreCompileInputs.cache
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\obj\Debug\netcoreapp3.1\ApplicationFitness.Infrastracture.csproj.CopyComplete
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\obj\Debug\netcoreapp3.1\ApplicationFitness.Infrastracture.dll
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\obj\Debug\netcoreapp3.1\ApplicationFitness.Infrastracture.pdb
@@ -67,3 +66,9 @@ C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\obj\Debug\
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\bin\Debug\netcoreapp3.1\ApplicationFitnessCore.dll
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\bin\Debug\netcoreapp3.1\ApplicationFitnessCore.pdb
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\bin\Debug\netcoreapp3.1\ApplicationFitnessCore.dll.config
+C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\obj\Debug\netcoreapp3.1\ApplicationFitness.Infrastracture.csproj.CoreCompileInputs.cache

@@ -58,7 +58,7 @@ namespace WebApi.Services
             ProgramSchedule programSchedule = _programScheduleRepository.Find(id);
             if(programSchedule == null)
             {
-                throw new Exception("Employee not found");
+                return null;
             }
             else if (dto.FitnessProgramName != programSchedule.FitnessProgramName)
                 return null;

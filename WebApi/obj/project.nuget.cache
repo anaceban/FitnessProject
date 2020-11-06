@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "ILf8tvWnU1bPFsTcaKmUlu2suB817IELofw9ZlOL6Y/SdQ9qssFR/d22bXmA3h7kxyRB0CcuaBfRed/GkR5JCA==",
+  "dgSpecHash": "72Wus82NgZ+mGQ/9JJ+Q1JOnky/zmFd8zv/OwSzD5B+ctKoB9pNUQ/iEocW9DxpcEreG/O91prdiPmGFdtePlQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\WebApi\\WebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ana.ceban\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
+    "C:\\Users\\ana.ceban\\.nuget\\packages\\linq2db\\3.1.6\\linq2db.3.1.6.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.9\\microsoft.aspnetcore.cryptography.internal.3.1.9.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.9\\microsoft.aspnetcore.cryptography.keyderivation.3.1.9.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\3.1.9\\microsoft.aspnetcore.identity.entityframeworkcore.3.1.9.nupkg.sha512",

@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "BUj0c4ezWnt+RgLMUguT6M4H2JWXpuHeMNuef+Lay3iJqcBEmjU0qsyAcLwDbRl9DuY/rOFwywwLHeu9k2PKUA==",
+  "dgSpecHash": "y9T9p3j8Y5zfbHMLhTAW4F46GLbX3eDDc/+82ux6Ia3cRiyPNqsmUS10qLSLMN9FQgVXuLuvUSH7SkOiMo7LkA==",
   "success": true,
   "projectFilePath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness\\ApplicationFitness.Infrastracture.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.9\\microsoft.aspnetcore.cryptography.internal.3.1.9.nupkg.sha512",
+    "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.9\\microsoft.aspnetcore.cryptography.keyderivation.3.1.9.nupkg.sha512",
+    "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\3.1.9\\microsoft.aspnetcore.identity.entityframeworkcore.3.1.9.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
@@ -24,6 +27,8 @@
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.1.9\\microsoft.extensions.configuration.binder.3.1.9.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.9\\microsoft.extensions.dependencyinjection.3.1.9.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.9\\microsoft.extensions.dependencyinjection.abstractions.3.1.9.nupkg.sha512",
+    "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.extensions.identity.core\\3.1.9\\microsoft.extensions.identity.core.3.1.9.nupkg.sha512",
+    "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.extensions.identity.stores\\3.1.9\\microsoft.extensions.identity.stores.3.1.9.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.extensions.logging\\3.1.9\\microsoft.extensions.logging.3.1.9.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.9\\microsoft.extensions.logging.abstractions.3.1.9.nupkg.sha512",
     "C:\\Users\\ana.ceban\\.nuget\\packages\\microsoft.extensions.options\\3.1.9\\microsoft.extensions.options.3.1.9.nupkg.sha512",

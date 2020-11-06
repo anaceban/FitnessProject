@@ -48,7 +48,7 @@ namespace WebApi.Controllers
             var program = _programScheduleService.AddNewProgramSchedule(dto);
 
             if (program == null)
-                return BadRequest("Program with such IDNP already exists");
+                return BadRequest("Program with such name already exists");
 
             var result = _mapper.Map<ProgramScheduleDto>(program);
 

@@ -15,6 +15,18 @@
           "lib/netstandard2.0/AutoMapper.dll": {}
         }
       },
+      "linq2db/3.1.6": {
+        "type": "package",
+        "dependencies": {
+          "System.ComponentModel.Annotations": "4.7.0"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/linq2db.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/linq2db.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/3.1.9": {
         "type": "package",
         "compile": {
@@ -2292,8 +2304,9 @@
       },
       "ApplicationFitness.Domain/1.0.0": {
         "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
+        "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.9",
           "Microsoft.EntityFrameworkCore": "3.1.9",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.9"
         },
@@ -2310,6 +2323,7 @@
         "dependencies": {
           "ApplicationFitness.Domain": "1.0.0",
           "ApplicationFitnessCore": "1.0.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.9",
           "Microsoft.EntityFrameworkCore": "3.1.9",
           "Microsoft.EntityFrameworkCore.Relational.Design": "1.1.6",
           "Microsoft.Extensions.Caching.SqlServer": "3.1.9",
@@ -2349,6 +2363,37 @@
         "lib/net461/AutoMapper.xml",
         "lib/netstandard2.0/AutoMapper.dll",
         "lib/netstandard2.0/AutoMapper.xml"
+      ]
+    },
+    "linq2db/3.1.6": {
+      "sha512": "tDPq+Vm6EfuqNjRtMPtfiQhIuMye8d1l1ot38MmkTsWpFnC0p4bMxYojcSWZDgrcdvPjxCISESLnAl+Cx1zQ/w==",
+      "type": "package",
+      "path": "linq2db/3.1.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "MIT-LICENSE.txt",
+        "images/icon.png",
+        "lib/net45/linq2db.dll",
+        "lib/net45/linq2db.pdb",
+        "lib/net45/linq2db.xml",
+        "lib/net46/linq2db.dll",
+        "lib/net46/linq2db.pdb",
+        "lib/net46/linq2db.xml",
+        "lib/netcoreapp2.1/linq2db.dll",
+        "lib/netcoreapp2.1/linq2db.pdb",
+        "lib/netcoreapp2.1/linq2db.xml",
+        "lib/netcoreapp3.1/linq2db.dll",
+        "lib/netcoreapp3.1/linq2db.pdb",
+        "lib/netcoreapp3.1/linq2db.xml",
+        "lib/netstandard2.0/linq2db.dll",
+        "lib/netstandard2.0/linq2db.pdb",
+        "lib/netstandard2.0/linq2db.xml",
+        "lib/netstandard2.1/linq2db.dll",
+        "lib/netstandard2.1/linq2db.pdb",
+        "lib/netstandard2.1/linq2db.xml",
+        "linq2db.3.1.6.nupkg.sha512",
+        "linq2db.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Cryptography.Internal/3.1.9": {
@@ -7824,7 +7869,8 @@
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.9",
       "Swashbuckle.AspNetCore.Swagger >= 5.6.3",
       "Swashbuckle.AspNetCore.SwaggerGen >= 5.6.3",
-      "Swashbuckle.AspNetCore.SwaggerUI >= 5.6.3"
+      "Swashbuckle.AspNetCore.SwaggerUI >= 5.6.3",
+      "linq2db >= 3.1.6"
     ]
   },
   "packageFolders": {
@@ -7913,6 +7959,10 @@
           "Swashbuckle.AspNetCore.SwaggerUI": {
             "target": "Package",
             "version": "[5.6.3, )"
+          },
+          "linq2db": {
+            "target": "Package",
+            "version": "[3.1.6, )"
           }
         },
         "imports": [
