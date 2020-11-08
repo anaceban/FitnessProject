@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using ApplicationFitness;
 using ApplicationFitness.Domain.Models;
+using ApplicationFitness.Domain.Models.Auth;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using WebApi.Dtos;
 using WebApi.Identity;
@@ -41,9 +45,28 @@ namespace WebApi
                 optionBuilder.UseSqlServer(Configuration.GetConnectionString("DbConnection"));
             });
 
-            //services.AddDbContext<IdentityFitnessContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DbIdentity")));
-            //services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-            //    .AddEntityFrameworkStores<IdentityFitnessContext>();
+            services.AddIdentity<User, Role>()
+                  .AddEntityFrameworkStores<FitnessAppContext>()
+                  .AddDefaultTokenProviders();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    options.SaveToken = true;
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidAudience = Configuration["JWT:ValidAudience"],
+                        ValidIssuer = Configuration["JWT:ValidIssuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+                    };
+                });
 
             var mapperConfig = new MapperConfiguration(m =>
             {
@@ -58,6 +81,7 @@ namespace WebApi
             services.AddScoped<IProgramTypeService, ProgramTypeService>();
             services.AddScoped<IUserReviewService, UserReviewService>();
             services.AddScoped<IUserService, UserService>();
+
         }
         private void ConfigureSwagger(IServiceCollection services)
         {

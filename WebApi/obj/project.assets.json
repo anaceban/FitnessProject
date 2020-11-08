@@ -27,6 +27,21 @@
           "lib/netcoreapp3.1/linq2db.dll": {}
         }
       },
+      "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.9": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "5.5.0"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/3.1.9": {
         "type": "package",
         "compile": {
@@ -2394,6 +2409,21 @@
         "lib/netstandard2.1/linq2db.xml",
         "linq2db.3.1.6.nupkg.sha512",
         "linq2db.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.9": {
+      "sha512": "6f61m1Rj5qne88CsfuyzRIE9dih7K0e3J3I3A4d9nyPcWhjz+0UUCYGocLHhYihVahxDIifK6Jn2m1LWD8/XEg==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/3.1.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.xml",
+        "microsoft.aspnetcore.authentication.jwtbearer.3.1.9.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.jwtbearer.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Cryptography.Internal/3.1.9": {
@@ -7862,6 +7892,7 @@
       "ApplicationFitness.Infrastracture >= 1.0.0",
       "ApplicationFitnessCore >= 1.0.0",
       "AutoMapper >= 10.1.1",
+      "Microsoft.AspNetCore.Authentication.JwtBearer >= 3.1.9",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 3.1.9",
       "Microsoft.EntityFrameworkCore >= 3.1.9",
       "Microsoft.EntityFrameworkCore.Design >= 3.1.9",
@@ -7874,19 +7905,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ana.ceban\\.nuget\\packages\\": {}
+    "C:\\Users\\Elena\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\WebApi\\WebApi.csproj",
+      "projectUniqueName": "C:\\Users\\Elena\\FitnessProject\\WebApi\\WebApi.csproj",
       "projectName": "WebApi",
-      "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\WebApi\\WebApi.csproj",
-      "packagesPath": "C:\\Users\\ana.ceban\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\WebApi\\obj\\",
+      "projectPath": "C:\\Users\\Elena\\FitnessProject\\WebApi\\WebApi.csproj",
+      "packagesPath": "C:\\Users\\Elena\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Elena\\FitnessProject\\WebApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ana.ceban\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Elena\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7899,14 +7930,14 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Core\\ApplicationFitness.Domain.csproj": {
-              "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Core\\ApplicationFitness.Domain.csproj"
+            "C:\\Users\\Elena\\FitnessProject\\ApplicationFitness.Core\\ApplicationFitness.Domain.csproj": {
+              "projectPath": "C:\\Users\\Elena\\FitnessProject\\ApplicationFitness.Core\\ApplicationFitness.Domain.csproj"
             },
-            "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Domain\\ApplicationFitnessCore.csproj": {
-              "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Domain\\ApplicationFitnessCore.csproj"
+            "C:\\Users\\Elena\\FitnessProject\\ApplicationFitness.Domain\\ApplicationFitnessCore.csproj": {
+              "projectPath": "C:\\Users\\Elena\\FitnessProject\\ApplicationFitness.Domain\\ApplicationFitnessCore.csproj"
             },
-            "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness\\ApplicationFitness.Infrastracture.csproj": {
-              "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness\\ApplicationFitness.Infrastracture.csproj"
+            "C:\\Users\\Elena\\FitnessProject\\ApplicationFitness\\ApplicationFitness.Infrastracture.csproj": {
+              "projectPath": "C:\\Users\\Elena\\FitnessProject\\ApplicationFitness\\ApplicationFitness.Infrastracture.csproj"
             }
           }
         }
@@ -7923,6 +7954,10 @@
           "AutoMapper": {
             "target": "Package",
             "version": "[10.1.1, )"
+          },
+          "Microsoft.AspNetCore.Authentication.JwtBearer": {
+            "target": "Package",
+            "version": "[3.1.9, )"
           },
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
             "target": "Package",
@@ -7983,7 +8018,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
       }
     }
   }
