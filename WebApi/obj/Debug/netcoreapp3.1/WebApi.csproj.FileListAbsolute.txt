@@ -183,3 +183,9 @@ C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\bin\Debug\netcoreapp3.
 C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\obj\Debug\netcoreapp3.1\WebApi.csproj.CoreCompileInputs.cache
 C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\obj\Debug\netcoreapp3.1\WebApi.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\obj\Debug\netcoreapp3.1\WebApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\bin\Debug\netcoreapp3.1\Properties\serviceDependencies.json
+C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\bin\Debug\netcoreapp3.1\Google.Apis.dll
+C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\bin\Debug\netcoreapp3.1\Google.Apis.Admin.Directory.directory_v1.dll
+C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\bin\Debug\netcoreapp3.1\Google.Apis.Auth.PlatformServices.dll
+C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\bin\Debug\netcoreapp3.1\Google.Apis.Auth.dll
+C:\Users\ana.ceban\source\repos\ApplicationFitness\WebApi\bin\Debug\netcoreapp3.1\Google.Apis.Core.dll

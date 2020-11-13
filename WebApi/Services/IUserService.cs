@@ -18,5 +18,6 @@ namespace WebApi.Services
 
         void RemoveUserById(int id);
         User UpdateUserProfile(UserProfileDto dto, User user);
+        List<User> GetUsers();
     }
 }

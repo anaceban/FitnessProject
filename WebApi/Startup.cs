@@ -7,11 +7,13 @@ using IdentityServer4.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using WebApi.Identity;
 using WebApi.Mappings;
 
 namespace WebApi
@@ -42,9 +44,12 @@ namespace WebApi
                 options.Password.RequireDigit = false; 
             })
             .AddEntityFrameworkStores<FitnessAppContext>();
-            services.AddAuthentication()
-                    .AddIdentityServerJwt();  
-
+            var authOptions = services.ConfigureAuthOptions(Configuration);
+            services.AddJwtAuthentication(authOptions);
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(new AuthorizeFilter());
+            });
             var mapperConfig = new MapperConfiguration(m =>
             {
                 m.AddProfile(new MappingProfile());
@@ -99,6 +104,7 @@ namespace WebApi
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

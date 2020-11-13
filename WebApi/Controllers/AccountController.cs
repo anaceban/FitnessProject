@@ -13,6 +13,9 @@ using ApplicationFitness.Domain.Models.Auth;
 using WebApi.Services;
 using WebApi.Dtos;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Options;
+
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
@@ -24,17 +27,21 @@ namespace WebApi.Controllers
         private readonly IUserService _userService;
         private readonly SignInManager<User> _signInManager;
         private readonly IProgramScheduleService _programScheduleService;
+        private readonly AuthOptions _authenticationOptions;
 
         public AccountController(UserManager<User> userManager, RoleManager<Role> roleManager,
-            IUserService userService, SignInManager<User> signInManager, IProgramScheduleService programScheduleService)
+            IUserService userService, SignInManager<User> signInManager, IProgramScheduleService programScheduleService,
+            IOptions<AuthOptions> authOptions)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _userService = userService;
+            _signInManager = signInManager;
             _programScheduleService = programScheduleService;
+            _authenticationOptions = authOptions.Value;
            
         }
-
+        
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModelDto model)
@@ -91,27 +98,37 @@ namespace WebApi.Controllers
                 }
                 else
                 {
-                    //var userProgram = new UserProgramDto { UserId = user.Id, ProgramScheduleId = schedule.Id };
-                    //_userScheduleService.AddNewUserProgramSchedule(userProgram);
                     return Ok(schedule);
                 }
             }
             return Ok();
         }
-        [HttpPost]
-        [Route("login")]
-        public IActionResult Login([FromBody] LoginModelDto model)
+        
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginModelDto model)
         {
-            if (ModelState.IsValid)
-            {
-                var result = _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false).Result;
-                if (result.Succeeded)
-                {
-                    return Ok("Login Successed");
-                }
+            var checkingPasswordResult = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
+            if (checkingPasswordResult.Succeeded)
+            {
+                var signinCredentials = new SigningCredentials(_authenticationOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256);
+                var jwtSecurityToken = new JwtSecurityToken(
+                     issuer: _authenticationOptions.Issuer,
+                     audience: _authenticationOptions.Audience,
+                     claims: new List<Claim>(),
+                     expires: DateTime.Now.AddDays(30),
+                     signingCredentials: signinCredentials
+                );
+
+                var tokenHandler = new JwtSecurityTokenHandler();
+
+                var encodedToken = tokenHandler.WriteToken(jwtSecurityToken);
+
+                return Ok(new { AccessToken = encodedToken });
             }
-            return BadRequest("Invalid login");
+
+            return Unauthorized();
         }
         [HttpPost]
         [Route("logout")]

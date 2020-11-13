@@ -57,5 +57,9 @@ namespace WebApi.Services
             }
             else return null;
         }
+        public List<User> GetUsers()
+        {
+            return _context.Users.ToList();
+        }
     }
 }

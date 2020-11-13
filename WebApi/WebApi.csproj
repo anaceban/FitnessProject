@@ -6,10 +6,12 @@
 
   <ItemGroup>
     <None Remove="Controllers\5cpec3a1.4sx~" />
+    <None Remove="Controllers\iizuzzs2.0ye~" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Google.Apis.Admin.Directory.directory_v1" Version="1.49.0.1982" />
     <PackageReference Include="linq2db" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="3.1.9" />

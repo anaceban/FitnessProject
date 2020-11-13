@@ -9,6 +9,8 @@ namespace WebApi.Dtos
     public class UserProfileDto
     {
         [Required]
+        public int Id { get; set; }
+        [Required]
         [Range(1940, 2010)]
 
         public int YearOfBirth { get; set; }
