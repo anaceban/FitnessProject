@@ -26,7 +26,7 @@ namespace WebApi.Controllers
         public IActionResult Get()
         {
             var programTypes = _programTypeService.GetProgramTypes();
-            var rezult = programTypes.Select(p => _mapper.Map<ProgramTypeDto>(p));
+            var rezult = programTypes.Select(p => _mapper.Map<ProgramTypeDto>(p)).ToList();
             return Ok(rezult);
         }
         [HttpGet("{id}")]

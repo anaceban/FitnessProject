@@ -10,7 +10,7 @@ namespace WebApi.Services
 {
     public interface IProgramTypeService
     {
-        IList<ProgramType> GetProgramTypes();
+        List<ProgramType> GetProgramTypes();
 
         ProgramType GetProgramById(int id);
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApplicationFitness.Domain.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -42,6 +43,14 @@ namespace WebApi.Controllers
                 return Ok(_mapper.Map<ProgramScheduleDto>(programsSchedule));
             }
         }
+        [HttpGet("{user}")]
+        public IActionResult GetScheduleForUser(User user)
+        {
+            var programSchedule = _programScheduleService.FindProgramForUser(user);
+
+            return Ok(_mapper.Map<ProgramScheduleDto>(programSchedule));
+        }
+
         [HttpPost]
         public IActionResult Post([FromBody] CreateProgramScheduleDto dto)
         {

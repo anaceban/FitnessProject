@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ApplicationFitness.Domain.Models
 {
-    public class UserSchedule
+    public class UserSchedule : BaseEntity
     { 
         public int UserId { get; set; }
         public User User { get; set; }

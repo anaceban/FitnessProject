@@ -32,8 +32,6 @@ namespace ApplicationFitness
                 .WithMany(c => c.DishDays)
                 .HasForeignKey(bc => bc.DishId);
             modelBuilder.Entity<UserSchedule>()
-                .HasKey(bc => new { bc.UserId, bc.ProgramScheduleId });
-            modelBuilder.Entity<UserSchedule>()
                 .HasOne(bc => bc.User)
                 .WithMany(c => c.UserSchedules)
                 .HasForeignKey(bc => bc.ProgramScheduleId);

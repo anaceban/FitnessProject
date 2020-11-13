@@ -9,8 +9,8 @@ namespace WebApi.Dtos
     public class ReviewDto
     {
         public int UserId { get; set; }
-        [Required]
 
+        [Required]
         public string Comment { get; set; }
     }
 }

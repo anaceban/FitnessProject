@@ -1,13 +1,12 @@
 ﻿using ApplicationFitness;
 using ApplicationFitness.Domain.Models;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Dtos;
-using WebApi.Identity.Register;
-using WebApi.Repositories;
+using WebApi.Identity;
 
 namespace WebApi.Services
 {
@@ -16,67 +15,47 @@ namespace WebApi.Services
         private readonly FitnessAppContext _context;
         public UserService(FitnessAppContext context)
         {
-            _context = context;
+            _context = context;    
         }
-        
-        public User Create(UserDto user)
+        public User AddNewUser(RegisterModelDto dto)
         {
-            var _user = new User
+            var user = new User
             {
-                Email = user.Email,
-                PasswordHash = user.Password,
-                UserName = user.Name,
-                Weight = user.Weight,
-                Height = user.Height,
-                Gender = user.Gender,
-                PrimaryGoal = user.PrimaryGoal,
-                LevelOfFitnessExperience = user.LevelOfFitnessExperience,
-                YearOfBirth = user.YearOfBirth
+                UserName = dto.UserName,
+                Email = dto.Email,
             };
-            _context.Users.Add(_user);
+
+            _context.Users.Add(user);
             _context.SaveChanges();
-            return _user;
+            return user;
         }
 
-        public bool Delete(int id)
-        {
-            var user = _context.Users.Find(id);
-            if (user == null)
-            {
-                return false; 
-            }
-            else _context.Users.Remove(user);
-            _context.SaveChanges();
-            return true;
-
-        }
-
-        public IList<User> GetAll()
-        {
-            return _context.Users.ToList();
-        }
-
-        public User GetById(int id)
+        public User GetUserById(int id)
         {
             return _context.Users.Find(id);
         }
 
-        public User Update(UserDto user, int id)
+        public void RemoveUserById(int id)
         {
-            var _user = _context.Users.Find(id);
-            if(user == null)
-            {
-                throw new Exception("User not found");
-            }
-            _user.UserName = user.Name;
-            _user.Weight = user.Weight;
-            _user.Height = user.Height;
-            _user.Gender = user.Gender;
-            _user.PrimaryGoal = user.PrimaryGoal;
-            _user.LevelOfFitnessExperience = user.LevelOfFitnessExperience;
-            _user.YearOfBirth = user.YearOfBirth;
+            var user = _context.Users.Find(id);
+            _context.Remove(user);
             _context.SaveChanges();
-            return _user;
+        }
+
+        public User UpdateUserProfile(UserProfileDto dto, User user)
+        {
+            if (user != null)
+            {
+                user.Gender = dto.Gender;
+                user.YearOfBirth = dto.YearOfBirth;
+                user.Weight = dto.Weight;
+                user.Height = dto.Height;
+                user.PrimaryGoal = dto.PrimaryGoal;
+                user.LevelOfFitnessExperience = dto.LevelOfFitnessExperience;
+                _context.SaveChanges();
+                return user;
+            }
+            else return null;
         }
     }
 }

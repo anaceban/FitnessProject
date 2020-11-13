@@ -7089,19 +7089,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Elena\\.nuget\\packages\\": {}
+    "C:\\Users\\ana.ceban\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Elena\\FitnessProject\\ApplicationFitness.Core\\ApplicationFitness.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Core\\ApplicationFitness.Domain.csproj",
       "projectName": "ApplicationFitness.Domain",
-      "projectPath": "C:\\Users\\Elena\\FitnessProject\\ApplicationFitness.Core\\ApplicationFitness.Domain.csproj",
-      "packagesPath": "C:\\Users\\Elena\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Elena\\FitnessProject\\ApplicationFitness.Core\\obj\\",
+      "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Core\\ApplicationFitness.Domain.csproj",
+      "packagesPath": "C:\\Users\\ana.ceban\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness.Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Elena\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ana.ceban\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7165,7 +7165,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

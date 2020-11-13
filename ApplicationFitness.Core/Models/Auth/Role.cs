@@ -7,5 +7,9 @@ namespace ApplicationFitness.Domain.Models.Auth
 {
     public class Role : IdentityRole<int>
     {
+        public Role(string name): base(name)
+        {
+
+        }
     }
 }

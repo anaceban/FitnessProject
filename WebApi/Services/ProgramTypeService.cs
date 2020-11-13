@@ -32,7 +32,7 @@ namespace WebApi.Services
             return _typeRepository.Find(id);
         }
 
-        public IList<ProgramType> GetProgramTypes()
+        public List<ProgramType> GetProgramTypes()
         {
             return _typeRepository.GetAll().ToList();
         }

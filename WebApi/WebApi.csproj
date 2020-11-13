@@ -11,6 +11,8 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="linq2db" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="3.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
@@ -32,10 +34,6 @@
     <ProjectReference Include="..\ApplicationFitness.Core\ApplicationFitness.Domain.csproj" />
     <ProjectReference Include="..\ApplicationFitness.Domain\ApplicationFitnessCore.csproj" />
     <ProjectReference Include="..\ApplicationFitness\ApplicationFitness.Infrastracture.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Identity\NewFolder\" />
   </ItemGroup>
 
 

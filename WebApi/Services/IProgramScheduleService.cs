@@ -15,6 +15,7 @@ namespace WebApi.Services
         ProgramSchedule AddNewProgramSchedule(CreateProgramScheduleDto dto);
         ProgramSchedule UpdateProgramSchedule(int id, CreateProgramScheduleDto dto);
         ProgramSchedule PartialUpdate(int id, UpdateProgramScheduleDto dto);
+        ProgramSchedule FindProgramForUser(User user);
 
     }
 }

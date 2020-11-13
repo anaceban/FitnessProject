@@ -87,5 +87,18 @@ namespace WebApi.Services
             _programScheduleRepository.Save();
             return programSchedule;
         }
+
+        public ProgramSchedule FindProgramForUser(User user)
+        {
+            foreach (var schedule in _programScheduleRepository.GetAll())
+            {
+                if (schedule.FitnessProgramName == user.LevelOfFitnessExperience && schedule.NutritionProgramName == user.PrimaryGoal)
+                {
+                    return schedule;
+                }
+                else return null;
+            }
+            return null;
+        }
     }
 }

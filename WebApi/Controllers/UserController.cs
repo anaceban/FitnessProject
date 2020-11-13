@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using ApplicationFitness.Domain.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Dtos;
+using WebApi.Identity;
 using WebApi.Services;
 
 namespace WebApi.Controllers
@@ -15,28 +17,11 @@ namespace WebApi.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IMapper _mapper;
-        private readonly IUserService _userService;
-        public UserController(IMapper mapper, IUserService userService)
+        UserManager<User> _userManager;
+
+        public UserController(UserManager<User> userManager)
         {
-            _mapper = mapper;
-            _userService = userService;
-        }
-
-        [HttpGet]
-        public IActionResult GetAllUsers()
-        {
-            var result = _userService.GetAll();
-            return Ok(result);
-        }
-
-        [HttpPost]
-        public IActionResult AddNewUser([FromBody] UserDto user)
-        {
-            var result = _userService.Create(user);
-
-
-            return CreatedAtAction(nameof(GetAllUsers), new { id = result.Id }, result);
+            _userManager = userManager;
         }
     }
 }

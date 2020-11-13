@@ -353,15 +353,22 @@ namespace ApplicationFitness.Infrastracture.Migrations
 
             modelBuilder.Entity("ApplicationFitness.Domain.Models.UserSchedule", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("ProgramScheduleId")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId", "ProgramScheduleId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ProgramScheduleId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UsersPrograms");
                 });

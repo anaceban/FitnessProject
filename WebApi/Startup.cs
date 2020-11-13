@@ -1,30 +1,18 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ApplicationFitness;
 using ApplicationFitness.Domain.Models;
 using ApplicationFitness.Domain.Models.Auth;
 using AutoMapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using IdentityServer4.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using WebApi.Dtos;
-using WebApi.Identity;
 using WebApi.Mappings;
-using WebApi.Repositories;
-using WebApi.Services;
 
 namespace WebApi
 {
@@ -45,42 +33,26 @@ namespace WebApi
                 optionBuilder.UseSqlServer(Configuration.GetConnectionString("DbConnection"));
             });
 
-            services.AddIdentity<User, Role>()
-                  .AddEntityFrameworkStores<FitnessAppContext>()
-                  .AddDefaultTokenProviders();
-            services.AddAuthentication(options =>
+            services.AddIdentity<User, Role>(options =>
             {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;   
+                options.Password.RequireLowercase = true; 
+                options.Password.RequireUppercase = true; 
+                options.Password.RequireDigit = false; 
             })
-                .AddJwtBearer(options =>
-                {
-                    options.SaveToken = true;
-                    options.RequireHttpsMetadata = false;
-                    options.TokenValidationParameters = new TokenValidationParameters()
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidAudience = Configuration["JWT:ValidAudience"],
-                        ValidIssuer = Configuration["JWT:ValidIssuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
-                    };
-                });
+            .AddEntityFrameworkStores<FitnessAppContext>();
+            services.AddAuthentication()
+                    .AddIdentityServerJwt();  
 
             var mapperConfig = new MapperConfiguration(m =>
             {
                 m.AddProfile(new MappingProfile());
             });
-
             ConfigureSwagger(services);
             services.AddControllers();
             services.AddSingleton(mapperConfig.CreateMapper());
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped<IProgramScheduleService, ProgramScheduleService>();
-            services.AddScoped<IProgramTypeService, ProgramTypeService>();
-            services.AddScoped<IUserReviewService, UserReviewService>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped();
 
         }
         private void ConfigureSwagger(IServiceCollection services)
@@ -115,14 +87,13 @@ namespace WebApi
         }
 
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
