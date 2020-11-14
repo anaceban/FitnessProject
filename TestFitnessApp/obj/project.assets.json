@@ -10321,19 +10321,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ana.ceban\\.nuget\\packages\\": {}
+    "C:\\Users\\Elena\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\TestFitnessApp\\TestFitnessApp.csproj",
+      "projectUniqueName": "C:\\Users\\Elena\\FitnessProject\\TestFitnessApp\\TestFitnessApp.csproj",
       "projectName": "TestFitnessApp",
-      "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\TestFitnessApp\\TestFitnessApp.csproj",
-      "packagesPath": "C:\\Users\\ana.ceban\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\TestFitnessApp\\obj\\",
+      "projectPath": "C:\\Users\\Elena\\FitnessProject\\TestFitnessApp\\TestFitnessApp.csproj",
+      "packagesPath": "C:\\Users\\Elena\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Elena\\FitnessProject\\TestFitnessApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ana.ceban\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Elena\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -10346,11 +10346,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness\\ApplicationFitness.Infrastracture.csproj": {
-              "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\ApplicationFitness\\ApplicationFitness.Infrastracture.csproj"
+            "C:\\Users\\Elena\\FitnessProject\\ApplicationFitness\\ApplicationFitness.Infrastracture.csproj": {
+              "projectPath": "C:\\Users\\Elena\\FitnessProject\\ApplicationFitness\\ApplicationFitness.Infrastracture.csproj"
             },
-            "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\WebApi\\WebApi.csproj": {
-              "projectPath": "C:\\Users\\ana.ceban\\source\\repos\\ApplicationFitness\\WebApi\\WebApi.csproj"
+            "C:\\Users\\Elena\\FitnessProject\\WebApi\\WebApi.csproj": {
+              "projectPath": "C:\\Users\\Elena\\FitnessProject\\WebApi\\WebApi.csproj"
             }
           }
         }
@@ -10419,7 +10419,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
       }
     }
   },

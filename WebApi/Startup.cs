@@ -7,6 +7,7 @@ using IdentityServer4.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -93,7 +94,9 @@ namespace WebApi
 
 
         
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+            UserManager<User> userManager,
+            RoleManager<Role> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -103,7 +106,7 @@ namespace WebApi
 
             app.UseRouting();
             app.UseAuthentication();
-            app.UseAuthorization();
+            IdentityDataInitializer.SeedData(userManager, roleManager);
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
