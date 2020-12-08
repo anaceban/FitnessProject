@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Dtos;
 using WebApi.Repositories;
+using WebApi.Sorting;
 
 namespace WebApi.Services
 {
@@ -35,6 +36,21 @@ namespace WebApi.Services
         public List<ProgramType> GetProgramTypes()
         {
             return _typeRepository.GetAll().ToList();
+        }
+
+        public IEnumerable<ProgramType> GetTypesFiltered(SampleFilterModel filter)
+        {
+            var propertyInfo = typeof(ProgramType);
+            var property = propertyInfo.GetProperty(filter.SortedField ?? "Name");
+            if (string.IsNullOrEmpty(filter.Term))
+            {
+                var allTypes = GetProgramTypes() as IEnumerable<ProgramType>;
+                allTypes = filter.SortAsc ? allTypes.OrderBy(p => property.GetValue(p)) : allTypes.OrderByDescending(p => property.GetValue(p));
+                return allTypes;
+            }
+            var types = _typeRepository.GetAll().Where(u => u.Name.StartsWith(filter.Term)).AsEnumerable();
+            types = filter.SortAsc ? types.OrderBy(p => property.GetValue(p)) : types.OrderByDescending(p => property.GetValue(p));
+            return types;
         }
 
         public bool RemoveProgramTypeById(int id)
@@ -70,5 +86,7 @@ namespace WebApi.Services
             _typeRepository.Save();
             return type;
         }
+
+         
     }
 }

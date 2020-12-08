@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Dtos;
 using WebApi.Services;
+using WebApi.Sorting;
 
 namespace WebApi.Controllers
 {
@@ -22,13 +24,28 @@ namespace WebApi.Controllers
             _programTypeService = programTypeService;
             _mapper = mapper;
         }
+
+        [AllowAnonymous]
         [HttpGet]
+        [Route("types")]
+
         public IActionResult Get()
         {
             var programTypes = _programTypeService.GetProgramTypes();
             var rezult = programTypes.Select(p => _mapper.Map<ProgramTypeDto>(p)).ToList();
             return Ok(rezult);
         }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet("filtered")]
+        public ActionResult<PagedCollectionResponse<ProgramTypeDto>> Get([FromQuery] SampleFilterModel filter)
+        {
+            var types = _programTypeService.GetTypesFiltered(filter);
+            var result = PagedCollectionResponse<ProgramTypeDto>.Create(types, filter, (t) => _mapper.Map<ProgramTypeDto>(t));
+            return result;
+        }
+
+            [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -42,7 +59,8 @@ namespace WebApi.Controllers
                 return Ok(_mapper.Map<ProgramTypeDto>(programType));
             }
         }
-        [HttpPost]
+        [Authorize(Roles = "admin")]
+        [HttpPost("create")]
         public IActionResult Post([FromBody] CreateProgramType dto)
         {
             var programType = _programTypeService.AddNewProgramType(dto);
@@ -54,7 +72,7 @@ namespace WebApi.Controllers
 
             return CreatedAtAction(nameof(Get), new { id = programType.Id }, result);
         }
-
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] ProgramTypeDto dto)
         {
@@ -65,7 +83,7 @@ namespace WebApi.Controllers
 
             return NoContent();
         }
-
+        [AllowAnonymous]
         [HttpPatch("{id}")]
         public IActionResult Patch(int id, [FromBody] UpdateProgramType dto)
         {
@@ -77,7 +95,7 @@ namespace WebApi.Controllers
             var result = _mapper.Map<ProgramTypeDto>(programType);
             return Ok(result);
         }
-
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

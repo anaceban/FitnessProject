@@ -8,11 +8,15 @@ namespace WebApi.Dtos
 {
     public class CreateProgramScheduleDto
     {
-        [Required]
+        public int Id { get; set; }
+
         public int? ProgramTypeId { get; set; }
         [Required]
         public string FitnessProgramName { get; set; }
         [Required]
         public string NutritionProgramName { get; set; }
+        public string FitnessProgramDescription { get; set; }
+        [Required]
+        public string NutritionProgramDescription { get; set; }
     }
 }

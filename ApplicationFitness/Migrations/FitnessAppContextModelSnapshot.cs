@@ -159,8 +159,8 @@ namespace ApplicationFitness.Infrastracture.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Quantity")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeOfMeal")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -182,12 +182,33 @@ namespace ApplicationFitness.Infrastracture.Migrations
                     b.ToTable("DishDays");
                 });
 
+            modelBuilder.Entity("ApplicationFitness.Domain.Models.ProgramAdvices", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdviceDesc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AdviceForUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Advices");
+                });
+
             modelBuilder.Entity("ApplicationFitness.Domain.Models.ProgramDay", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ScheduleId")
                         .HasColumnType("int");
@@ -256,10 +277,18 @@ namespace ApplicationFitness.Infrastracture.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RatingMark")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ScheduleId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ScheduleId");
 
                     b.HasIndex("UserId");
 
@@ -287,11 +316,17 @@ namespace ApplicationFitness.Infrastracture.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Height")
                         .HasColumnType("int");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LevelOfFitnessExperience")
                         .HasColumnType("nvarchar(max)");
@@ -309,6 +344,9 @@ namespace ApplicationFitness.Infrastracture.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
+
+                    b.Property<int>("NumberOfCaloriesPerDay")
+                        .HasColumnType("int");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -353,22 +391,15 @@ namespace ApplicationFitness.Infrastracture.Migrations
 
             modelBuilder.Entity("ApplicationFitness.Domain.Models.UserSchedule", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProgramScheduleId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserId", "ProgramScheduleId");
 
                     b.HasIndex("ProgramScheduleId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("UsersPrograms");
                 });
@@ -426,13 +457,13 @@ namespace ApplicationFitness.Infrastracture.Migrations
 
             modelBuilder.Entity("ApplicationFitness.Domain.Models.DishDay", b =>
                 {
-                    b.HasOne("ApplicationFitness.Domain.Models.ProgramDay", "ProgramDay")
+                    b.HasOne("ApplicationFitness.Domain.Models.Dish", "Dish")
                         .WithMany("DishDays")
                         .HasForeignKey("DishId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ApplicationFitness.Domain.Models.Dish", "Dish")
+                    b.HasOne("ApplicationFitness.Domain.Models.ProgramDay", "ProgramDay")
                         .WithMany("DishDays")
                         .HasForeignKey("ProgramDayId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -457,6 +488,12 @@ namespace ApplicationFitness.Infrastracture.Migrations
 
             modelBuilder.Entity("ApplicationFitness.Domain.Models.Review", b =>
                 {
+                    b.HasOne("ApplicationFitness.Domain.Models.ProgramSchedule", "ProgramSchedule")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ApplicationFitness.Domain.Models.User", "User")
                         .WithMany("Reviews")
                         .HasForeignKey("UserId")
@@ -466,13 +503,13 @@ namespace ApplicationFitness.Infrastracture.Migrations
 
             modelBuilder.Entity("ApplicationFitness.Domain.Models.UserSchedule", b =>
                 {
-                    b.HasOne("ApplicationFitness.Domain.Models.User", "User")
+                    b.HasOne("ApplicationFitness.Domain.Models.ProgramSchedule", "ProgramSchedule")
                         .WithMany("UserSchedules")
                         .HasForeignKey("ProgramScheduleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ApplicationFitness.Domain.Models.ProgramSchedule", "ProgramSchedule")
+                    b.HasOne("ApplicationFitness.Domain.Models.User", "User")
                         .WithMany("UserSchedules")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -9,7 +9,6 @@
       "ApplicationFitness.Infrastracture/1.0.0": {
         "dependencies": {
           "ApplicationFitness.Domain": "1.0.0",
-          "ApplicationFitnessCore": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.9",
           "Microsoft.EntityFrameworkCore": "3.1.9",
           "Microsoft.EntityFrameworkCore.Design": "3.1.9",
@@ -1506,11 +1505,6 @@
         "runtime": {
           "ApplicationFitness.Domain.dll": {}
         }
-      },
-      "ApplicationFitnessCore/1.0.0": {
-        "runtime": {
-          "ApplicationFitnessCore.dll": {}
-        }
       }
     }
   },
@@ -2515,11 +2509,6 @@
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
     "ApplicationFitness.Domain/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "ApplicationFitnessCore/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

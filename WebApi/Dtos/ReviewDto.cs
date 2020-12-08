@@ -8,9 +8,10 @@ namespace WebApi.Dtos
 {
     public class ReviewDto
     {
-        public int UserId { get; set; }
-
         [Required]
         public string Comment { get; set; }
+        public int ScheduleId { get; set; }
+        public int RatingMark { get; set; }
+
     }
 }

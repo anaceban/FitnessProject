@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Services;
 using WebApi.Dtos;
+using ApplicationFitness.Domain.Models;
 
 namespace WebApi.Controllers
 {
@@ -31,17 +32,6 @@ namespace WebApi.Controllers
                 return NotFound();
             }
             else return Ok(_mapper.Map<UserProgramDto>(userProgram));
-        }
-        [HttpPost]
-        [Route("create")]
-        public IActionResult AddNewUserProgram(UserProgramDto dto)
-        {
-            var userProgram = _userScheduleService.AddNewUserProgramSchedule(dto);
-            if (userProgram == null) {
-                return BadRequest("Error");
-            }
-            var result = _mapper.Map<UserProgramDto>(userProgram);
-            return CreatedAtAction(nameof(Get), new { id = userProgram.Id }, result);
         }
 
     }

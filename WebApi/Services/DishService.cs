@@ -1,4 +1,5 @@
 ﻿using ApplicationFitness.Domain.Models;
+using ApplicationFitness.Infrastracture.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,8 @@ namespace WebApi.Services
 {
     public class DishService : IDishService
     {
-        private readonly IRepository<Dish> _dishRepository;
-        public DishService(IRepository<Dish> repository)
+        private readonly IDishRepository _dishRepository;
+        public DishService(IDishRepository repository)
         {
             _dishRepository = repository;
         }
@@ -21,19 +22,19 @@ namespace WebApi.Services
             var dish = new Dish
             {
                 Name = dto.Name,
-                Quantity = dto.Quantity
-                
+                TypeOfMeal = dto.TypeOfMeal
+
             };
-            foreach(var d in _dishRepository.GetAll())
-            {
-                if (d.Name.Equals(dish.Name))
-                {
-                    throw new Exception("Such dish already exists");
-                }
-            }
+
             _dishRepository.Add(dish);
             _dishRepository.Save();
             return dish;
+        }
+
+        public IEnumerable<Dish> GetDishesForDay(int dayId)
+        {
+            var dishes = _dishRepository.GetDishForDay(dayId);
+            return dishes;
         }
 
         public Dish GetProgramDishById(int id)
@@ -46,6 +47,14 @@ namespace WebApi.Services
             return _dishRepository.GetAll().ToList();
         }
 
+        public IEnumerable<Dish> GetProgramDishes(string startsWith)
+        {
+            if (string.IsNullOrEmpty(startsWith))
+                return GetProgramDishes();
+            var dishes = _dishRepository.GetAll().Where(d => d.Name.StartsWith(startsWith)).OrderBy(d => d.Name);
+            return dishes;
+        }
+
         public bool RemoveProgramDishById(int id)
         {
             var dish = _dishRepository.Find(id);
@@ -55,7 +64,20 @@ namespace WebApi.Services
                 _dishRepository.Save();
                 return true;
             }
-            else return false;
+            return false;
+        }
+
+        public Dish UpdateProgramDish(DishDto dto, int id)
+        {
+            var dish = _dishRepository.Find(id);
+            if(dish == null)
+            {
+                return null;
+            }
+            dish.Name = dto.Name;
+            dish.TypeOfMeal = dto.TypeOfMeal;
+            _dishRepository.Save();
+            return dish;
         }
     }
 }

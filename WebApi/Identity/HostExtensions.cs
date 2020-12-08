@@ -1,4 +1,5 @@
 ﻿using ApplicationFitness.Domain.Models;
+using ApplicationFitness.Domain.Models.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,7 +12,8 @@ namespace WebApi.Identity
 {
     public static class HostExtensions
     {
-        public static void SeedData(this IHost host)
+
+        public static async Task SeedData(this IHost host)
         {
             using (var scope = host.Services.CreateScope())
             {
@@ -19,11 +21,12 @@ namespace WebApi.Identity
                 try
                 {
                     var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
-                    var roleManager = serviceProvider.GetRequiredService<RoleManager<User>>();
+                    var roleManager = serviceProvider.GetRequiredService<RoleManager<Role>>();
+                    await IdentityDataInitializer.SeedData(userManager, roleManager);
                 }
-                catch
+                catch(Exception ex)
                 {
-
+                    Console.WriteLine(ex.Message);
                 }
             }
         }

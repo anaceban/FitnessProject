@@ -15,6 +15,9 @@ using WebApi.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using AutoMapper;
+using WebApi.Services.Interfaces;
 
 namespace WebApi.Controllers
 {
@@ -28,10 +31,15 @@ namespace WebApi.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly IProgramScheduleService _programScheduleService;
         private readonly AuthOptions _authenticationOptions;
+        private readonly IMapper _mapper;
+        private readonly IProgramDayService _dayService;
+        private readonly IDayDishService _dayDishService;
+        private readonly IUserReviewService _userReviewService;
 
         public AccountController(UserManager<User> userManager, RoleManager<Role> roleManager,
             IUserService userService, SignInManager<User> signInManager, IProgramScheduleService programScheduleService,
-            IOptions<AuthOptions> authOptions)
+            IOptions<AuthOptions> authOptions, IMapper mapper, IProgramDayService dayService, IDayDishService dayDishService,
+            IUserReviewService userReviewService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -39,56 +47,93 @@ namespace WebApi.Controllers
             _signInManager = signInManager;
             _programScheduleService = programScheduleService;
             _authenticationOptions = authOptions.Value;
-           
+            _mapper = mapper;
+            _dayService = dayService;
+            _dayDishService = dayDishService;
+            _userReviewService = userReviewService;
         }
-        
+        [AllowAnonymous]
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterModelDto model)
+        public async Task<UserManagerResponse> Register([FromBody] RegisterModelDto model)
         {
             if (ModelState.IsValid)
             {
-                var user = new User { Email = model.Email, UserName = model.UserName };
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                var userCheck = await _userManager.FindByEmailAsync(model.Email);
+
+                if (userCheck == null)
                 {
-                    var resultRole = _roleManager.RoleExistsAsync("user").Result;
-                    if (!resultRole)
+                    var user = new User
                     {
-                        var role = new Role("user");
-                        var roleResult = _roleManager.CreateAsync(role).Result;
-                        if (!roleResult.Succeeded)
+                        Email = model.Email,
+                        UserName = model.Email,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName
+                    };
+                    var result = await _userManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        var resultRole = _roleManager.RoleExistsAsync("user").Result;
+                        if (!resultRole)
                         {
-                            return BadRequest("Unautorized user");
+                            var role = new Role("user");
+                            var roleResult = _roleManager.CreateAsync(role).Result;
+                            if (!roleResult.Succeeded)
+                            {
+                                return new UserManagerResponse
+                                {
+                                    Message = "Such User Already Exist"
+                                };
+                            }
+                        }
+                        await _userManager.AddToRoleAsync(user, "user");
+                        await _signInManager.SignInAsync(user, false);
+                        var encodedToken = JwtService.GenerateJwt(user, _userManager, _authenticationOptions);
+                        return await JwtService.GenerateJwt(user, _userManager, _authenticationOptions);
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                            return new UserManagerResponse
+                            {
+                                Message = "Error"
+                            };
                         }
                     }
-                    await _userManager.AddToRoleAsync(user, "user");
-                    _userService.AddNewUser(model);
-                    await _signInManager.SignInAsync(user, false);
-                    return Ok();
                 }
-                else
+                else if (userCheck != null)
                 {
-                    foreach (var error in result.Errors)
+                    return new UserManagerResponse
                     {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                        return BadRequest(error.Description);
-                    }
+                        Message = "User With Such Email Already Exist",
+                        IsSucces = false
+                    };
                 }
-                
             }
-            return Ok();
+            
+            return new UserManagerResponse
+            {
+                Message = "Successfully",
+                IsSucces = true
+            };
         }
-
-        [HttpPut]
-        public async Task<IActionResult> CreateProfilePage([FromBody] UserProfileDto dto, string name)
+        [HttpPut("page")]
+        [Authorize(Roles = "user")]
+        public async Task<IActionResult> CreateProfilePage([FromBody] UserProfileDto dto)
         {
+            if(dto == null)
+            {
+                return NotFound();
+            }
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByNameAsync(name);
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                
                 if (user == null)
                 {
-                    return BadRequest("Invalid User Name");
+                    return BadRequest("No such user");
                 }
                 _userService.UpdateUserProfile(dto, user);
                 var schedule = _programScheduleService.FindProgramForUser(user);
@@ -103,39 +148,84 @@ namespace WebApi.Controllers
             }
             return Ok();
         }
-        
+
+        [HttpGet("program")]
+        [Authorize(Roles = "user")]
+        public IActionResult GetScheduleForUser()
+        {
+            var user =  _userManager.GetUserAsync(HttpContext.User);
+            var programSchedule = _programScheduleService.GetProgramForUser(user.Result);
+
+            return Ok(_mapper.Map<ProgramScheduleDto>(programSchedule));
+        }
+
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginModelDto model)
+        public async Task<UserManagerResponse> Login([FromBody] LoginModelDto model)
         {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if(user == null)
+            {
+                return new UserManagerResponse
+                {
+                    IsSucces = false,
+                    Message = "User with such email doesn't exist"
+                };
+            }
             var checkingPasswordResult = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
             if (checkingPasswordResult.Succeeded)
             {
-                var signinCredentials = new SigningCredentials(_authenticationOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256);
-                var jwtSecurityToken = new JwtSecurityToken(
-                     issuer: _authenticationOptions.Issuer,
-                     audience: _authenticationOptions.Audience,
-                     claims: new List<Claim>(),
-                     expires: DateTime.Now.AddDays(30),
-                     signingCredentials: signinCredentials
-                );
-
-                var tokenHandler = new JwtSecurityTokenHandler();
-
-                var encodedToken = tokenHandler.WriteToken(jwtSecurityToken);
-
-                return Ok(new { AccessToken = encodedToken });
+                return await JwtService.GenerateJwt(user, _userManager, _authenticationOptions);
             }
 
-            return Unauthorized();
+            return new UserManagerResponse
+            {
+                Message = "Incorect password"
+            };
         }
         [HttpPost]
+        [Authorize]
         [Route("logout")]
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
-            return Ok();
+            return Ok("Successfully");
+        }
+
+        [HttpGet("profilePage")]
+        [Authorize(Roles = "user")]
+        public IActionResult GetUserData()
+        {
+            var user = _userManager.GetUserAsync(HttpContext.User);
+            var data = new UserDataDto 
+            { 
+                FirstName = user.Result.FirstName,
+                LastName = user.Result.LastName,
+                Weight = user.Result.Weight,
+                Height = user.Result.Height,
+                NumberOfCaloriesPerDay = user.Result.NumberOfCaloriesPerDay,
+                YearOfBirth = user.Result.YearOfBirth
+            };
+            return Ok(data);
+        }
+        [HttpGet("days")]
+        [Authorize(Roles = "user")]
+        public IActionResult GetProgramDays()
+        {
+            var user = _userManager.GetUserAsync(HttpContext.User);
+            var schedule = _programScheduleService.FindProgramForUser(user.Result);
+            var programDays = _dayService.GetProgramDayByScheduleId(schedule.Id).ToList();
+            return Ok(programDays);
+        }
+        [HttpGet("dishes")]
+        [Authorize(Roles = "user")]
+        public IActionResult GetProgramDishes()
+        {
+            var user = _userManager.GetUserAsync(HttpContext.User);
+            var dishes = _programScheduleService.GetDishes(user.Result);
+
+            return Ok(dishes);
         }
 
     }

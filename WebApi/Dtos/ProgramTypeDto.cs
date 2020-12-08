@@ -8,6 +8,7 @@ namespace WebApi.Dtos
 {
     public class ProgramTypeDto
     {
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
     }

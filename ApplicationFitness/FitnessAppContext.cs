@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
+using System.Reflection;
 using WebApi;
 
 namespace ApplicationFitness
@@ -26,20 +27,20 @@ namespace ApplicationFitness
             modelBuilder.Entity<DishDay>()
                 .HasOne(bc => bc.Dish)
                 .WithMany(c => c.DishDays)
-                .HasForeignKey(bc => bc.ProgramDayId);
+                .HasForeignKey(bc => bc.DishId);
             modelBuilder.Entity<DishDay>()
                 .HasOne(bc => bc.ProgramDay)
                 .WithMany(c => c.DishDays)
-                .HasForeignKey(bc => bc.DishId);
+                .HasForeignKey(bc => bc.ProgramDayId);
             modelBuilder.Entity<UserSchedule>()
-                .HasOne(bc => bc.User)
-                .WithMany(c => c.UserSchedules)
-                .HasForeignKey(bc => bc.ProgramScheduleId);
-            modelBuilder.Entity<UserSchedule>()
-                .HasOne(bc => bc.ProgramSchedule)
-                .WithMany(c => c.UserSchedules)
-                .HasForeignKey(bc => bc.UserId);
+                .HasKey(up => new { up.UserId, up.ProgramScheduleId });
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(FitnessAppContext)));
             ApplyIdentityMapConfiguration(modelBuilder);
+            modelBuilder.Entity<Review>()
+                .HasOne(r => r.ProgramSchedule)
+                .WithMany(p => p.Reviews)
+                .HasForeignKey(s => s.ScheduleId);
+            
         }
 
         public DbSet<ProgramSchedule> Schedules { get; set; }
@@ -49,6 +50,7 @@ namespace ApplicationFitness
         public DbSet<UserSchedule> UsersPrograms { get; set; }
         public DbSet<DishDay> DishDays { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<ProgramAdvice> Advices { get; set; }
 
         private void ApplyIdentityMapConfiguration(ModelBuilder modelBuilder)
         {

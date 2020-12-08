@@ -12,8 +12,8 @@ namespace WebApi.Repositories
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly FitnessAppContext _context;
-        private readonly DbSet<T> _dbSet;
+        protected readonly FitnessAppContext _context;
+        protected readonly DbSet<T> _dbSet;
         public Repository(FitnessAppContext dbContext)
         {
             _context = dbContext;

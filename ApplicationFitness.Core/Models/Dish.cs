@@ -7,7 +7,7 @@ namespace ApplicationFitness.Domain.Models
     public class Dish : BaseEntity
     {
         public string Name { get; set; }
-        public int? Quantity { get; set; }
+        public string TypeOfMeal { get; set; }
         public List<DishDay> DishDays { get; set; }
     }
 }

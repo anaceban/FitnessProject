@@ -12,9 +12,6 @@ C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\obj\Debug\
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\obj\Debug\netcoreapp3.1\ApplicationFitness.Infrastracture.dll
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\obj\Debug\netcoreapp3.1\ApplicationFitness.Infrastracture.pdb
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\obj\Debug\netcoreapp3.1\ApplicationFitness.Infrastracture.genruntimeconfig.cache
-C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\bin\Debug\netcoreapp3.1\ApplicationFitnessCore.dll
-C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\bin\Debug\netcoreapp3.1\ApplicationFitnessCore.pdb
-C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\bin\Debug\netcoreapp3.1\ApplicationFitnessCore.dll.config
 C:\Users\ana.ceban\source\repos\ApplicationFitness\ApplicationFitness\obj\Debug\netcoreapp3.1\ApplicationFitness.Infrastracture.csproj.CoreCompileInputs.cache
 C:\Users\Elena\FitnessProject\ApplicationFitness\bin\Debug\netcoreapp3.1\ApplicationFitness.Infrastracture.deps.json
 C:\Users\Elena\FitnessProject\ApplicationFitness\bin\Debug\netcoreapp3.1\ApplicationFitness.Infrastracture.runtimeconfig.json

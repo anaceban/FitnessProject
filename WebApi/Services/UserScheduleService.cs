@@ -11,33 +11,50 @@ namespace WebApi.Services
 {
     public class UserScheduleService : IUserScheduleService
     {
-        private readonly IRepository<UserSchedule> _userScheduleRepository;
-        public UserScheduleService(IRepository<UserSchedule> userScheduleRepository)
+        private readonly FitnessAppContext _context;
+        public UserScheduleService(FitnessAppContext context)
         {
-            _userScheduleRepository = userScheduleRepository;
+            _context = context;
         }
-        public UserSchedule AddNewUserProgramSchedule(UserProgramDto dto)
+        public void AddNewUserProgramSchedule(User user, ProgramSchedule schedule)
         {
-            UserSchedule userProgram = new UserSchedule 
-            { 
-                UserId = dto.UserId, 
-                ProgramScheduleId = dto.ProgramScheduleId 
-            };
-            _userScheduleRepository.Add(userProgram);
-            _userScheduleRepository.Save();
-            return userProgram;
-            
+            var userSchedule = _context.UsersPrograms.SingleOrDefault(u => u.UserId == user.Id && u.ProgramScheduleId == schedule.Id);
+            if (userSchedule == null)
+            {
+                var result = new UserSchedule
+                {
+                    User = user,
+                    ProgramSchedule = schedule,
+                    UserId = user.Id,
+                    ProgramScheduleId = schedule.Id
+                };
+                _context.UsersPrograms.Add(result);
+                _context.SaveChanges();
+            }
+            else
+            {
+                _context.UsersPrograms.Remove(userSchedule);
+                _context.UsersPrograms.Add( new UserSchedule
+                {
+                    User = user,
+                    ProgramSchedule = schedule,
+                    UserId = user.Id,
+                    ProgramScheduleId = schedule.Id
+                }
+                );
+                _context.SaveChanges();
+            }
         }
 
 
         public List<UserSchedule> GetAllUsersWithProgram()
         {
-            return _userScheduleRepository.GetAll().ToList();
+            return _context.UsersPrograms.ToList();
         }
 
         public UserSchedule GetUserScheduleById(int id)
         {
-            var userProgram = _userScheduleRepository.Find(id);
+            var userProgram = _context.UsersPrograms.Find(id);
             if (userProgram == null)
             {
                 return null;

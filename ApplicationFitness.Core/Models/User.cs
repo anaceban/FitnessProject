@@ -7,6 +7,8 @@ namespace ApplicationFitness.Domain.Models
 {
     public class User : IdentityUser<int>
     { 
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public int Weight { get; set; }
         public int Height { get; set; }
         public int YearOfBirth { get; set; }
@@ -16,6 +18,7 @@ namespace ApplicationFitness.Domain.Models
 
         public List<UserSchedule> UserSchedules { get; set; }
         public List <Review> Reviews { get; set; } 
+        public int NumberOfCaloriesPerDay { get; set; }
     }
 
     

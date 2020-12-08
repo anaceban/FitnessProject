@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Dtos;
 using WebApi.Services;
+using WebApi.Sorting;
 
 namespace WebApi.Controllers
 {
@@ -22,13 +24,16 @@ namespace WebApi.Controllers
             _dishService = dishService;
             _mapper = mapper;
         }
+        [Authorize(Roles ="admin")]
         [HttpGet]
-        public IActionResult Get()
+        [Route("getAll")]
+        public PagedCollectionResponse<DishDto> Get([FromQuery] SampleFilterModel filter)
         {
-            var dishes = _dishService.GetProgramDishes();
-            var result = dishes.Select(p => _mapper.Map<DishDto>(p)).ToList();
-            return Ok(result);
+            var dishes = _dishService.GetProgramDishes(filter.Term);
+            var result = PagedCollectionResponse<DishDto>.Create(dishes, filter, (d) => _mapper.Map<DishDto>(d));
+            return result;
         }
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -43,18 +48,38 @@ namespace WebApi.Controllers
             }
         }
 
+        [Authorize(Roles ="admin")]
         [HttpPost]
+        [Route("add")]
         public IActionResult Post([FromBody] DishDto dishDto)
         {
-            var dish = _dishService.AddNewProgramDish(dishDto);
-
-            if (dish == null)
+            var dish = _dishService.GetProgramDishes().Find(d => d.Name == dishDto.Name && d.TypeOfMeal == dishDto.TypeOfMeal);
+            if(dish == null)
+            {
+                _dishService.AddNewProgramDish(dishDto);
+            }
+            
+            if (dish != null)
                 return BadRequest("Dish with such name already exists");
 
             var result = _mapper.Map<DishDto>(dish);
 
-            return CreatedAtAction(nameof(Get), new { id = dish.Id }, result);
+            return Ok(result);
         }
+        [Authorize(Roles = "admin")]
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult Put([FromBody] DishDto dishDto, int id)
+        {
+            var dish = _dishService.UpdateProgramDish(dishDto, id);
+            if (dish == null)
+                return BadRequest();
+
+            return NoContent();
+
+        }
+
+        [Authorize(Roles= "admin")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

@@ -15,5 +15,6 @@ namespace ApplicationFitness.Domain.Models
         public string FitnessProgramName { get; set; }
         public string NutritionProgramName { get; set; }
         public List<UserSchedule> UserSchedules { get; set; }
+        public List<Review> Reviews { get; set; }
     }
 }

@@ -10,5 +10,6 @@ namespace WebApi.Dtos
         public int? ProgramTypeId { get; set; }
         public string FitnessProgramName { get; set; }
         public string NutritionProgramName { get; set; }
+
     }
 }

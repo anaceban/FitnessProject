@@ -13,10 +13,10 @@
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Google.Apis.Admin.Directory.directory_v1" Version="1.49.0.1982" />
     <PackageReference Include="linq2db" Version="3.1.6" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="3.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.9">
       <PrivateAssets>all</PrivateAssets>
@@ -34,7 +34,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ApplicationFitness.Core\ApplicationFitness.Domain.csproj" />
-    <ProjectReference Include="..\ApplicationFitness.Domain\ApplicationFitnessCore.csproj" />
     <ProjectReference Include="..\ApplicationFitness\ApplicationFitness.Infrastracture.csproj" />
   </ItemGroup>
 

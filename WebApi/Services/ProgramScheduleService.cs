@@ -1,4 +1,6 @@
-﻿using ApplicationFitness.Domain.Models;
+﻿using ApplicationFitness;
+using ApplicationFitness.Domain.Models;
+using AutoMapper;
 using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections.Generic;
@@ -6,15 +8,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Dtos;
 using WebApi.Repositories;
+using WebApi.Sorting;
 
 namespace WebApi.Services
 {
     public class ProgramScheduleService : IProgramScheduleService
     {
         private readonly IRepository<ProgramSchedule> _programScheduleRepository;
-        public ProgramScheduleService(IRepository<ProgramSchedule> repository)
+        private readonly IUserScheduleService _userScheduleService;
+        private readonly IDishService _dishService;
+        private readonly IMapper _mapper;
+        private readonly FitnessAppContext _context;
+        public ProgramScheduleService(IRepository<ProgramSchedule> repository, IUserScheduleService userScheduleService
+            , IDishService dishService, IMapper mapper, FitnessAppContext context)
         {
-            _programScheduleRepository = repository;   
+            _programScheduleRepository = repository;
+            _userScheduleService = userScheduleService;
+            _dishService = dishService;
+            _mapper = mapper;
+            _context = context;
         }
 
         public ProgramSchedule AddNewProgramSchedule(CreateProgramScheduleDto dto)
@@ -23,7 +35,9 @@ namespace WebApi.Services
             {
                 ProgramTypeId = dto.ProgramTypeId,
                 FitnessProgramName = dto.FitnessProgramName,
-                NutritionProgramName = dto.NutritionProgramName  
+                NutritionProgramName = dto.NutritionProgramName,
+                FitnessProgramDescription = dto.FitnessProgramDescription,
+                NutritionProgramDescription = dto.NutritionProgramDescription
             };
 
             _programScheduleRepository.Add(program);
@@ -66,6 +80,8 @@ namespace WebApi.Services
             programSchedule.ProgramTypeId = dto.ProgramTypeId;
             programSchedule.FitnessProgramName = dto.FitnessProgramName;
             programSchedule.NutritionProgramName = dto.NutritionProgramName;
+            programSchedule.FitnessProgramDescription = dto.FitnessProgramDescription;
+            programSchedule.NutritionProgramDescription = dto.NutritionProgramDescription;
             _programScheduleRepository.Save();
             return programSchedule;
         }
@@ -90,15 +106,67 @@ namespace WebApi.Services
 
         public ProgramSchedule FindProgramForUser(User user)
         {
-            foreach (var schedule in _programScheduleRepository.GetAll())
+            var schedule = _programScheduleRepository.Find(p => p.NutritionProgramName == user.PrimaryGoal && p.FitnessProgramName == user.LevelOfFitnessExperience);
+            if(schedule != null)
             {
-                if (schedule.FitnessProgramName == user.LevelOfFitnessExperience && schedule.NutritionProgramName == user.PrimaryGoal)
-                {
-                    return schedule;
-                }
-                else return null;
+                _userScheduleService.AddNewUserProgramSchedule(user, schedule);
+                return schedule;
             }
-            return null;
+            else return null;
+        }
+
+        public ProgramSchedule GetProgramForUser(User user)
+        {
+            var schedule = _programScheduleRepository.Find(p => p.NutritionProgramName == user.PrimaryGoal && p.FitnessProgramName == user.LevelOfFitnessExperience);
+            if (schedule != null)
+                return schedule;
+            else return null;
+        }
+        public IEnumerable<ProgramSchedule> GetProgramSchedules(SampleFilterModel filter)
+        {
+            var propertyInfo = typeof(ProgramSchedule);
+            
+            var propery = propertyInfo.GetProperty(filter.SortedField ?? "FitnessProgramName");
+            if (string.IsNullOrEmpty(filter.Term))
+            {
+                var result = GetProgramSchedules() as IEnumerable<ProgramSchedule>;
+                result = filter.SortAsc ? result.OrderBy(p => propery.GetValue(p)) : result.OrderByDescending(p => propery.GetValue(p));
+                return result;
+            }
+            var result2 = _programScheduleRepository.GetAll().AsEnumerable().Where(u => u.FitnessProgramName.StartsWith(filter.Term) || u.NutritionProgramName.StartsWith(filter.Term));
+            result2 = filter.SortAsc ? result2.OrderBy(p => propery.GetValue(p)) : result2.OrderByDescending(p => propery.GetValue(p));
+            return result2;
+        }
+
+        public List<ProgramDishDto> GetDishes(User user)
+        {
+            
+            var schedule = GetProgramForUser(user);
+            if(schedule == null)
+            {
+                return null;
+            }
+            var dayIds = _context.ProgramDays.Where(s => s.ScheduleId == schedule.Id).ToList();
+            var dayDishes = new List<DishDay>();
+            var result = new List<ProgramDishDto>();
+            foreach(var d in dayIds)
+            {
+                var item = new ProgramDishDto 
+                { 
+                    ProgramDayNumber = d.Id, 
+                    Dishes = _dishService.GetDishesForDay(d.Id).Select(r => _mapper.Map<DishDto>(r)), 
+                    TrainingLink = d.TrainingLink 
+                };
+                result.Add(item);
+            }
+            return result.ToList();
+        }
+
+        public ProgramScheduleDto GetProgramByTypeId(int typeId)
+        {
+            var schedule = _programScheduleRepository.GetAll().SingleOrDefault(t => t.ProgramTypeId == typeId);
+            var result = _mapper.Map<ProgramScheduleDto>(schedule);
+            return result;
         }
     }
 }

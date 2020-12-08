@@ -34,6 +34,7 @@ namespace WebApi
             services.AddDbContext<FitnessAppContext>(optionBuilder =>
             {
                 optionBuilder.UseSqlServer(Configuration.GetConnectionString("DbConnection"));
+                
             });
 
             services.AddIdentity<User, Role>(options =>
@@ -42,7 +43,8 @@ namespace WebApi
                 options.Password.RequireNonAlphanumeric = false;   
                 options.Password.RequireLowercase = true; 
                 options.Password.RequireUppercase = true; 
-                options.Password.RequireDigit = false; 
+                options.Password.RequireDigit = false;
+                options.User.RequireUniqueEmail = true;
             })
             .AddEntityFrameworkStores<FitnessAppContext>();
             var authOptions = services.ConfigureAuthOptions(Configuration);
@@ -56,7 +58,20 @@ namespace WebApi
                 m.AddProfile(new MappingProfile());
             });
             ConfigureSwagger(services);
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    buider =>
+                    {
+                        buider.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                    });
+            });
             services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             services.AddSingleton(mapperConfig.CreateMapper());
             services.AddScoped();
 
@@ -94,20 +109,21 @@ namespace WebApi
 
 
         
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
-            UserManager<User> userManager,
-            RoleManager<Role> roleManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseMiddleware<LoggerMiddleWare>();
+            app.UseCors();
             app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseAuthentication();
-            IdentityDataInitializer.SeedData(userManager, roleManager);
-
+            
+            
+            app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -119,7 +135,7 @@ namespace WebApi
             {
                 endpoints.MapControllers();
             });
-
+           
         }
     }
 }
