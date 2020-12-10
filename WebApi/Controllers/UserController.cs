@@ -53,7 +53,7 @@ namespace WebApi.Controllers
             {
                 _userService.RemoveUserById(id);
             }
-            else return null;
+            
             return Ok();
         }
 

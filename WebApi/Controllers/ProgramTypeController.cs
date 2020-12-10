@@ -45,23 +45,22 @@ namespace WebApi.Controllers
             return result;
         }
 
-            [AllowAnonymous]
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var programType = _programTypeService.GetProgramById(id);
+            var programType = _programTypeService.GetProgramTypeById(id);
             if (programType == null)
             {
                 return NotFound();
             }
-            else
-            {
-                return Ok(_mapper.Map<ProgramTypeDto>(programType));
-            }
+
+            return Ok(_mapper.Map<ProgramTypeDto>(programType));
+
         }
         [Authorize(Roles = "admin")]
         [HttpPost("create")]
-        public IActionResult Post([FromBody] CreateProgramType dto)
+        public IActionResult Post([FromBody] CreateProgramTypeDto dto)
         {
             var programType = _programTypeService.AddNewProgramType(dto);
 
@@ -85,7 +84,7 @@ namespace WebApi.Controllers
         }
         [AllowAnonymous]
         [HttpPatch("{id}")]
-        public IActionResult Patch(int id, [FromBody] UpdateProgramType dto)
+        public IActionResult Patch(int id, [FromBody] UpdateProgramTypeDto dto)
         {
             var programType = _programTypeService.UpdateProgramTypeDetails(id, dto);
 

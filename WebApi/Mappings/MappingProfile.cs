@@ -25,13 +25,16 @@ namespace WebApi.Mappings
             CreateMap<UserSchedule, UserProgramDto>();
             CreateMap<User, UserDto>();
             CreateMap<ProgramSchedule, CreateProgramScheduleDto>();
-            CreateMap<ProgramType, CreateProgramType>();
+            CreateMap<ProgramType, CreateProgramTypeDto>();
             CreateMap<User, UserDataDto>();
             CreateMap<ProgramDay, ProgramDayDto>();
             CreateMap<Dish, ProgramDishDto>();
             CreateMap<Review, GetReviewDto>();
             CreateMap<Review, UpdateReviewDto>();
             CreateMap<ProgramAdvice, ProgramAdviceDto>();
+            CreateMap<DishDay, DayDishDto>();
+            CreateMap<ProgramDay, DayDto>();
+            CreateMap<ProgramSchedule, UpdateProgramDto>();
         }
     }
 }

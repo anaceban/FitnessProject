@@ -19,6 +19,7 @@ namespace ApplicationFitness.Domain.Models
         public List<UserSchedule> UserSchedules { get; set; }
         public List <Review> Reviews { get; set; } 
         public int NumberOfCaloriesPerDay { get; set; }
+        public string ProgramTypeName { get; set; }
     }
 
     

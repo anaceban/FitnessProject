@@ -57,6 +57,7 @@ namespace WebApi.Services
                 user.PrimaryGoal = dto.PrimaryGoal;
                 user.LevelOfFitnessExperience = dto.LevelOfFitnessExperience;
                 user.NumberOfCaloriesPerDay = GetNumberOfCaloriesPerDay(user);
+                user.ProgramTypeName = dto.TypeName;
                 _context.SaveChanges();
                 return user;
             }
@@ -86,11 +87,11 @@ namespace WebApi.Services
         public int GetNumberOfCaloriesPerDay(User user)
         {
             var numberOfCal = 0;
-            if (user.Gender == "male")
+            if (user.Gender == "female")
             {
-                numberOfCal = 88 + (13 * user.Weight) + (5 * user.Height) - (6 * (DateTime.Now.Year - user.YearOfBirth));
+                numberOfCal = (10 * user.Weight) + (7 * user.Height) - (5 * (DateTime.Now.Year - user.YearOfBirth) - 161);
             }
-            else numberOfCal = 450 + (9 * user.Weight) + (3 * user.Height) - (4 * (DateTime.Now.Year - user.YearOfBirth));
+            else numberOfCal = 5 + (10 * user.Weight) + (7 * user.Height) - (5 * (DateTime.Now.Year - user.YearOfBirth));
             return numberOfCal;
 
         }

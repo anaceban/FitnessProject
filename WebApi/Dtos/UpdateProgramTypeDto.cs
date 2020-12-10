@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebApi.Dtos
 {
-    public class UpdateProgramType
+    public class UpdateProgramTypeDto
     {
         public string Name { get; set; }
     }

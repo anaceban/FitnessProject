@@ -20,19 +20,20 @@ namespace WebApi.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IProgramScheduleService _programScheduleService;
-
-        public ProgramScheduleController(IProgramScheduleService programScheduleService, IMapper mapper)
+        private readonly IProgramTypeService _programTypeService;
+        public ProgramScheduleController(IProgramScheduleService programScheduleService, IMapper mapper, IProgramTypeService programTypeService)
         {
             _programScheduleService = programScheduleService;
             _mapper = mapper;
+            _programTypeService = programTypeService;
         }
 
         [HttpGet("getAll")]
         [Authorize(Roles = "admin")]
-        public ActionResult<PagedCollectionResponse<ProgramScheduleDto>> Get([FromQuery] SampleFilterModel filter)
+        public ActionResult<PagedCollectionResponse<CreateProgramScheduleDto>> Get([FromQuery] SampleFilterModel filter)
         {
             var programSchedules = _programScheduleService.GetProgramSchedules(filter);
-            var result = PagedCollectionResponse<ProgramScheduleDto>.Create(programSchedules, filter, (p) => _mapper.Map<ProgramScheduleDto>(p));
+            var result = PagedCollectionResponse<CreateProgramScheduleDto>.Create(programSchedules, filter, (p) => _mapper.Map<CreateProgramScheduleDto>(p));
             return result;
         }
         [HttpGet("{id}")]
@@ -64,7 +65,7 @@ namespace WebApi.Controllers
         }
         [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
-        public IActionResult Put([FromBody] CreateProgramScheduleDto dto, int id)
+        public IActionResult Put([FromBody] UpdateProgramDto dto, int id)
         {
             var program = _programScheduleService.UpdateProgramSchedule(id, dto);
 
@@ -88,7 +89,7 @@ namespace WebApi.Controllers
         [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
-        {
+        { 
             _programScheduleService.RemoveProgramScheduleById(id);
             return NoContent();
         }
@@ -102,6 +103,15 @@ namespace WebApi.Controllers
                 return BadRequest("Not found"); 
             }
             return Ok(schedule);
+        }
+
+        [HttpGet("listIds")]
+        [Authorize(Roles = "admin")]
+        public IActionResult Get()
+        {
+            var programsSchedulesIds = _programScheduleService.GetProgramSchedules().Select(i => i.Id);
+            return Ok(programsSchedulesIds);
+            
         }
     }
 }

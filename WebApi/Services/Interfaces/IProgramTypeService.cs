@@ -13,15 +13,16 @@ namespace WebApi.Services
     {
         List<ProgramType> GetProgramTypes();
 
-        ProgramType GetProgramById(int id);
+        ProgramType GetProgramByName(string name);
 
-        ProgramType AddNewProgramType(CreateProgramType dto);
+        ProgramType AddNewProgramType(CreateProgramTypeDto dto);
 
-        ProgramType UpdateProgramTypeDetails(int id, UpdateProgramType dto);
+        ProgramType UpdateProgramTypeDetails(int id, UpdateProgramTypeDto dto);
 
         ProgramType UpdateProgramType(int id, ProgramTypeDto dto);
 
         bool RemoveProgramTypeById(int id);
         IEnumerable<ProgramType> GetTypesFiltered(SampleFilterModel filter);
+        ProgramType GetProgramTypeById(int id);
     }
 }

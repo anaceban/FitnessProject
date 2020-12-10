@@ -12,5 +12,6 @@ namespace WebApi.Dtos
         [Required]
         public string Name { get; set; }
         public string TypeOfMeal { get; set; }
+
     }
 }

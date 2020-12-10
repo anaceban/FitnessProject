@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Dtos;
+using WebApi.Sorting;
 
 namespace WebApi.Services.Interfaces
 {
@@ -12,5 +13,12 @@ namespace WebApi.Services.Interfaces
 
         IEnumerable<ProgramDayDto> GetProgramDayByScheduleId(int id);
         IEnumerable<int> GetProgramDayIdsByScheduleId(int id);
+
+        ProgramDay AddNewProgramDay(AddDishDay dto);
+
+        DishDay AddNewDishDay(DayDishDto dishDay);
+        IEnumerable<int> GetProgramDaysIds();
+
+        IEnumerable<ProgramDay> GetProgramDays(SampleFilterModel filter);
     }
 }

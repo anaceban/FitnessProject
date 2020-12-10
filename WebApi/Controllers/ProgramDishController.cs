@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Dtos;
 using WebApi.Services;
+using WebApi.Services.Interfaces;
 using WebApi.Sorting;
 
 namespace WebApi.Controllers
@@ -18,11 +19,12 @@ namespace WebApi.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IDishService _dishService;
-
-        public ProgramDishController(IDishService dishService, IMapper mapper)
+        private readonly IProgramDayService _programDayService;
+        public ProgramDishController(IDishService dishService, IMapper mapper, IProgramDayService programDayService)
         {
             _dishService = dishService;
             _mapper = mapper;
+            _programDayService = programDayService;
         }
         [Authorize(Roles ="admin")]
         [HttpGet]
@@ -53,18 +55,8 @@ namespace WebApi.Controllers
         [Route("add")]
         public IActionResult Post([FromBody] DishDto dishDto)
         {
-            var dish = _dishService.GetProgramDishes().Find(d => d.Name == dishDto.Name && d.TypeOfMeal == dishDto.TypeOfMeal);
-            if(dish == null)
-            {
-                _dishService.AddNewProgramDish(dishDto);
-            }
-            
-            if (dish != null)
-                return BadRequest("Dish with such name already exists");
-
-            var result = _mapper.Map<DishDto>(dish);
-
-            return Ok(result);
+           _dishService.AddNewProgramDish(dishDto);
+            return Ok();
         }
         [Authorize(Roles = "admin")]
         [HttpPut]
@@ -85,6 +77,14 @@ namespace WebApi.Controllers
         {
             _dishService.RemoveProgramDishById(id);
             return NoContent();
+        }
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        [Route("listDishes")]
+        public IActionResult Get()
+        {
+            var dishes = _dishService.GetProgramDishes();
+            return Ok(dishes);
         }
     }
 }

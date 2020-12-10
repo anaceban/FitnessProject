@@ -53,7 +53,7 @@ namespace TestFitnessApp
         public void ShouldGetProgramTypeById(int id)
         {
             var expected = _programTypes.First(p => p.Id == id);
-            _mockTypeService.Setup(m => m.GetProgramById(It.IsAny<int>())).Returns(expected);
+            _mockTypeService.Setup(m => m.GetProgramTypeById(It.IsAny<int>())).Returns(expected);
             var type = _programTypeController.Get(id) as OkObjectResult;
             var result = type.Value as ProgramTypeDto;
             Assert.AreEqual("Slimming", result.Name);
@@ -78,8 +78,8 @@ namespace TestFitnessApp
             _programTypes.Add(type);
             var expected = _programTypes;
             _mockTypeService.Setup(m => m.GetProgramTypes()).Returns(expected);
-            _mockTypeService.Setup(m => m.AddNewProgramType(It.IsAny<CreateProgramType>())).Returns(type);    
-            var controller = _programTypeController.Post(new CreateProgramType { Name = "Slimming for begginers" }) as ObjectResult;
+            _mockTypeService.Setup(m => m.AddNewProgramType(It.IsAny<CreateProgramTypeDto>())).Returns(type);    
+            var controller = _programTypeController.Post(new CreateProgramTypeDto { Name = "Slimming for begginers" }) as ObjectResult;
             var result = controller.Value as ProgramTypeDto;
             Assert.AreEqual(result.Name, type.Name);
             Assert.AreEqual((int)HttpStatusCode.Created, controller.StatusCode);

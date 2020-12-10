@@ -4,14 +4,16 @@ using ApplicationFitness;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ApplicationFitness.Infrastracture.Migrations
 {
     [DbContext(typeof(FitnessAppContext))]
-    partial class FitnessAppContextModelSnapshot : ModelSnapshot
+    [Migration("20201209122335_UpdateType")]
+    partial class UpdateType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -358,9 +360,6 @@ namespace ApplicationFitness.Infrastracture.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("PrimaryGoal")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProgramTypeName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")

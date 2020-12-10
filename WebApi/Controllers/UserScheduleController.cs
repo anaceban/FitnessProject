@@ -31,7 +31,7 @@ namespace WebApi.Controllers
             {
                 return NotFound();
             }
-            else return Ok(_mapper.Map<UserProgramDto>(userProgram));
+            return Ok(_mapper.Map<UserProgramDto>(userProgram));
         }
 
     }

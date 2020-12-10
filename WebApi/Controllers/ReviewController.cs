@@ -45,10 +45,9 @@ namespace WebApi.Controllers
             {
                 return NotFound();
             }
-            else
-            {
-                return Ok(_mapper.Map<ReviewDto>(reviews));
-            }
+
+            return Ok(_mapper.Map<ReviewDto>(reviews));
+
         }
         [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
@@ -98,10 +97,9 @@ namespace WebApi.Controllers
             {
                 return NotFound("No reviews");
             }
-            else
-            {
-                return Ok(reviews);
-            }
+
+            return Ok(reviews);
+
         }
     }
 }

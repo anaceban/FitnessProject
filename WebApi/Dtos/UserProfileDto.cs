@@ -22,5 +22,6 @@ namespace WebApi.Dtos
         public string PrimaryGoal { get; set; }
         [Required]
         public string LevelOfFitnessExperience { get; set; }
+        public string TypeName { get; set; }
     }
 }

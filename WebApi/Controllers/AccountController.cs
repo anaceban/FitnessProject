@@ -103,16 +103,13 @@ namespace WebApi.Controllers
                         }
                     }
                 }
-                else if (userCheck != null)
+                return new UserManagerResponse
                 {
-                    return new UserManagerResponse
-                    {
-                        Message = "User With Such Email Already Exist",
-                        IsSucces = false
-                    };
-                }
+                    Message = "User With Such Email Already Exist",
+                    IsSucces = false
+                };
             }
-            
+
             return new UserManagerResponse
             {
                 Message = "Successfully",
@@ -123,28 +120,22 @@ namespace WebApi.Controllers
         [Authorize(Roles = "user")]
         public async Task<IActionResult> CreateProfilePage([FromBody] UserProfileDto dto)
         {
-            if(dto == null)
+            if (dto == null)
             {
                 return NotFound();
             }
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
-                
-                if (user == null)
-                {
-                    return BadRequest("No such user");
-                }
+
                 _userService.UpdateUserProfile(dto, user);
                 var schedule = _programScheduleService.FindProgramForUser(user);
                 if (schedule == null)
                 {
                     return BadRequest("No such program schedule");
                 }
-                else
-                {
-                    return Ok(schedule);
-                }
+
+                return Ok(schedule);
             }
             return Ok();
         }
@@ -153,7 +144,7 @@ namespace WebApi.Controllers
         [Authorize(Roles = "user")]
         public IActionResult GetScheduleForUser()
         {
-            var user =  _userManager.GetUserAsync(HttpContext.User);
+            var user = _userManager.GetUserAsync(HttpContext.User);
             var programSchedule = _programScheduleService.GetProgramForUser(user.Result);
 
             return Ok(_mapper.Map<ProgramScheduleDto>(programSchedule));
@@ -164,7 +155,7 @@ namespace WebApi.Controllers
         public async Task<UserManagerResponse> Login([FromBody] LoginModelDto model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
-            if(user == null)
+            if (user == null)
             {
                 return new UserManagerResponse
                 {
@@ -198,8 +189,8 @@ namespace WebApi.Controllers
         public IActionResult GetUserData()
         {
             var user = _userManager.GetUserAsync(HttpContext.User);
-            var data = new UserDataDto 
-            { 
+            var data = new UserDataDto
+            {
                 FirstName = user.Result.FirstName,
                 LastName = user.Result.LastName,
                 Weight = user.Result.Weight,

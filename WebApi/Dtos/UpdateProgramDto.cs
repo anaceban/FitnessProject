@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace WebApi.Dtos
 {
-    public class CreateProgramScheduleDto
+    public class UpdateProgramDto
     {
         public int Id { get; set; }
 
-        public int? ProgramTypeId { get; set; }
         [Required]
         public string FitnessProgramName { get; set; }
         [Required]
@@ -18,7 +17,5 @@ namespace WebApi.Dtos
         public string FitnessProgramDescription { get; set; }
         [Required]
         public string NutritionProgramDescription { get; set; }
-        [Required]
-        public string TypeName { get; set; }
     }
 }

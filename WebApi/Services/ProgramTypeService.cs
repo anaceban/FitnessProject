@@ -17,7 +17,7 @@ namespace WebApi.Services
             _typeRepository = repository;
         }
 
-        public ProgramType AddNewProgramType(CreateProgramType dto)
+        public ProgramType AddNewProgramType(CreateProgramTypeDto dto)
         {
             var programType = new ProgramType
             {
@@ -28,7 +28,12 @@ namespace WebApi.Services
             return programType;
         }
 
-        public ProgramType GetProgramById(int id)
+        public ProgramType GetProgramByName(string name)
+        {
+            return _typeRepository.GetAll().SingleOrDefault(t => t.Name == name);
+        }
+
+        public ProgramType GetProgramTypeById(int id)
         {
             return _typeRepository.Find(id);
         }
@@ -77,7 +82,7 @@ namespace WebApi.Services
             return type;
         }
 
-        public ProgramType UpdateProgramTypeDetails(int id, UpdateProgramType dto)
+        public ProgramType UpdateProgramTypeDetails(int id, UpdateProgramTypeDto dto)
         {
             var type = _typeRepository.Find(id);
             if (type == null)
