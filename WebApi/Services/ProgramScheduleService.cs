@@ -33,7 +33,7 @@ namespace WebApi.Services
 
         public ProgramSchedule AddNewProgramSchedule(CreateProgramScheduleDto dto)
         {
-            var type = new CreateProgramType
+            var type = new CreateProgramTypeDto
             {
                 Name = dto.TypeName
             };
