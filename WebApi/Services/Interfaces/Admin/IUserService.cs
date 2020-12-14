@@ -21,7 +21,7 @@ namespace WebApi.Services
         void RemoveUserById(int id);
         User UpdateUserProfile(UserProfileDto dto, User user);
         List<User> GetUsers();
-        IEnumerable<User> GetUsersFiltered(SampleFilterModel filter);
+        IEnumerable<User> GetUsersFiltered(FilterModel filter);
 
         int GetNumberOfCaloriesPerDay(User user);
 

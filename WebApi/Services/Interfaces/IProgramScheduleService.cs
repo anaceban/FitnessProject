@@ -11,7 +11,7 @@ namespace WebApi.Services
     public interface IProgramScheduleService
     {
         IList<ProgramSchedule> GetProgramSchedules();
-        IEnumerable<CreateProgramScheduleDto> GetProgramSchedules(SampleFilterModel model);
+        IEnumerable<CreateProgramScheduleDto> GetProgramSchedules(FilterModel model);
         ProgramSchedule GetProgramScheduleById(int id);
         bool RemoveProgramScheduleById(int id);
         ProgramSchedule AddNewProgramSchedule(CreateProgramScheduleDto dto);

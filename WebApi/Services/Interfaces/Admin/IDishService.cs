@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Dtos;
+using WebApi.Sorting;
 
 namespace WebApi.Services
 {
@@ -17,9 +18,10 @@ namespace WebApi.Services
 
 
         bool RemoveProgramDishById(int id);
-        IEnumerable<Dish> GetProgramDishes(string startsWith);
+        IEnumerable<Dish> GetProgramDishes(FilterModel filter);
         Dish UpdateProgramDish(DishDto dto, int id);
 
         IEnumerable<Dish> GetDishesForDay(int dayId);
+
     }
 }

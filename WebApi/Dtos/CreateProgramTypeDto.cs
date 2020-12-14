@@ -11,5 +11,6 @@ namespace WebApi.Dtos
         [Required]
         [StringLength(200, MinimumLength = 5, ErrorMessage = "Name is too short")]
         public string Name { get; set; }
+        public int ScheduleId { get; set; }
     }
 }

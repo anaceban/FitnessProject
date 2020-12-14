@@ -20,6 +20,6 @@ namespace WebApi.Services
 
         bool RemoveReview(int id);
         IList<GetReviewDto> GetReviewsByScheduleId(int id);
-        IList<GetReviewDto> GetReviewsFiltered(SampleFilterModel filter);
+        IList<GetReviewDto> GetReviewsFiltered(FilterModel filter);
     }
 }

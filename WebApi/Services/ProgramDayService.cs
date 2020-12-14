@@ -17,11 +17,15 @@ namespace WebApi.Services
         private readonly FitnessAppContext _context;
         private readonly IMapper _mapper;
         private readonly IRepository<ProgramDay> _repository;
-        public ProgramDayService(FitnessAppContext context, IMapper mapper, IRepository<ProgramDay> repository)
+        private readonly IDishService _dishService;
+        private readonly IProgramTypeService _programTypeService;
+        public ProgramDayService(FitnessAppContext context, IMapper mapper, IRepository<ProgramDay> repository, IDishService dishService, IProgramTypeService programTypeService)
         {
             _context = context;
             _mapper = mapper;
             _repository = repository;
+            _dishService = dishService;
+            _programTypeService = programTypeService;
         }
 
         public DishDay AddNewDishDay(DayDishDto dishDay)
@@ -83,25 +87,64 @@ namespace WebApi.Services
             return _repository.GetAll();
         }
 
-        public IEnumerable<ProgramDay> GetProgramDays(SampleFilterModel filter)
+        public IEnumerable<DayDto> GetProgramDays(FilterModel filter)
         {
+            var result = new List<DayDto>();
             var properyInfo = typeof(ProgramDay);
             var propery = properyInfo.GetProperty(filter.SortedField ?? "TrainingLink");
             if (string.IsNullOrEmpty(filter.Term))
             {
-                var allDays = GetProgramDays();
+                var allDays = GetProgramDays().AsEnumerable();
                 allDays = filter.SortAsc ? allDays.OrderBy(p => propery.GetValue(p)) : allDays.OrderByDescending(p => propery.GetValue(p));
-                return allDays;
+                foreach(var d in allDays)
+                {
+                    var dishes = _dishService.GetDishesForDay(d.Id);
+                    result.Add(new DayDto
+                    {
+                        Id = d.Id,
+                        Name = d.Name,
+                        TrainingLink = d.TrainingLink,
+                        ScheduleId = d.ScheduleId,
+                        TypeName = _programTypeService.GetProgramTypeScheduleId(d.ScheduleId).Name,
+                        Dishes = _mapper.Map<List<DishDto>>(dishes)
+                    });
+                }
+                return result;
             }
             var days = _context.ProgramDays.Where(u => u.Name.StartsWith(filter.Term) || u.TrainingLink.StartsWith(filter.Term)).AsEnumerable();
             days = filter.SortAsc ? days.OrderBy(p => propery.GetValue(p)) : days.OrderByDescending(p => propery.GetValue(p));
-            return days.ToList();
+            foreach (var d in days)
+            {
+                var dishes = _dishService.GetDishesForDay(d.Id);
+                result.Add(new DayDto
+                {
+                    Name = d.Name,
+                    TrainingLink = d.TrainingLink,
+                    ScheduleId = d.ScheduleId,
+                    TypeName = _programTypeService.GetProgramTypeScheduleId(d.ScheduleId).Name,
+                    Dishes = _mapper.Map<List<DishDto>>(dishes)
+
+                });
+            }
+            return result;
         }
 
         public IEnumerable<int> GetProgramDaysIds()
         {
             var daysIds = _context.ProgramDays.Select(d => d.Id);
             return daysIds;
+        }
+
+        public bool RemoveDayById(int id)
+        {
+            var day = _repository.Find(id);
+            if(day != null)
+            {
+                _repository.Delete(day);
+                _repository.Save();
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace WebApi.Sorting
 
         }
 
-        public static PagedCollectionResponse<T> Create<E>(IEnumerable<E> collection, SampleFilterModel filter, Func<E, T> map)
+        public static PagedCollectionResponse<T> Create<E>(IEnumerable<E> collection, FilterModel filter, Func<E, T> map)
         {
             var result = new PagedCollectionResponse<T>();
             result.Items = collection.Skip((filter.Page) * filter.Limit).Take(filter.Limit).Select(map).ToList();

@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using WebApi.Dtos;
 using WebApi.Repositories;
+using WebApi.Sorting;
 
 namespace WebApi.Services
 {
@@ -47,12 +48,20 @@ namespace WebApi.Services
             return _dishRepository.GetAll().ToList();
         }
 
-        public IEnumerable<Dish> GetProgramDishes(string startsWith)
+        public IEnumerable<Dish> GetProgramDishes(FilterModel filter)
         {
-            if (string.IsNullOrEmpty(startsWith))
-                return GetProgramDishes();
-            var dishes = _dishRepository.GetAll().Where(d => d.Name.StartsWith(startsWith)).OrderBy(d => d.Name);
-            return dishes;
+            var propertyInfo = typeof(Dish);
+            var property = propertyInfo.GetProperty(filter.SortedField ?? "Name");
+            if (string.IsNullOrEmpty(filter.Term))
+            {
+                var allDishes = GetProgramDishes() as IEnumerable<Dish>;
+                allDishes = filter.SortAsc ? allDishes.OrderBy(p => property.GetValue(p)) : allDishes.OrderByDescending(p => property.GetValue(p));
+                return allDishes;
+            }
+
+            var result = _dishRepository.GetAll().Where(u => u.Name.StartsWith(filter.Term) || u.TypeOfMeal.StartsWith(filter.Term)).AsEnumerable();
+            result = filter.SortAsc ? result.OrderBy(p => property.GetValue(p)) : result.OrderByDescending(p => property.GetValue(p));
+            return result;
         }
 
         public bool RemoveProgramDishById(int id)

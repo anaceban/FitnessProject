@@ -11,5 +11,7 @@ namespace WebApi.Dtos
         public int ScheduleId { get; set; }
         public string Name { get; set; }
         public string TrainingLink { get; set; }
+        public string TypeName { get; set; }
+        public IEnumerable<DishDto> Dishes {get; set;}
     }
 }

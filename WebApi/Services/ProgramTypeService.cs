@@ -21,7 +21,8 @@ namespace WebApi.Services
         {
             var programType = new ProgramType
             {
-                Name = dto.Name
+                Name = dto.Name,
+                ProgramScheduleId = dto.ScheduleId
             };
             _typeRepository.Add(programType);
             _typeRepository.Save();
@@ -43,7 +44,17 @@ namespace WebApi.Services
             return _typeRepository.GetAll().ToList();
         }
 
-        public IEnumerable<ProgramType> GetTypesFiltered(SampleFilterModel filter)
+        public ProgramType GetProgramTypeScheduleId(int id)
+        {
+            var type = _typeRepository.Find(t => t.ProgramScheduleId == id);
+            if(type == null)
+            {
+                return null;
+            }
+            return type;
+        }
+
+        public IEnumerable<ProgramType> GetTypesFiltered(FilterModel filter)
         {
             var propertyInfo = typeof(ProgramType);
             var property = propertyInfo.GetProperty(filter.SortedField ?? "Name");
@@ -87,7 +98,7 @@ namespace WebApi.Services
             var type = _typeRepository.Find(id);
             if (type == null)
                 return null;
-            type.Name = dto.Name;
+            type.ProgramScheduleId = dto.ScheduleId;
             _typeRepository.Save();
             return type;
         }

@@ -18,10 +18,6 @@ namespace WebApi.Dtos
         public int Height { get; set; }
         [Required]
         public string Gender { get; set; }
-        [Required]
-        public string PrimaryGoal { get; set; }
-        [Required]
-        public string LevelOfFitnessExperience { get; set; }
         public string TypeName { get; set; }
     }
 }

@@ -7,6 +7,6 @@ namespace WebApi.Dtos
 {
     public class UpdateProgramTypeDto
     {
-        public string Name { get; set; }
+        public int ScheduleId { get; set; }
     }
 }

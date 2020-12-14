@@ -54,8 +54,6 @@ namespace WebApi.Services
                 user.YearOfBirth = dto.YearOfBirth;
                 user.Weight = dto.Weight;
                 user.Height = dto.Height;
-                user.PrimaryGoal = dto.PrimaryGoal;
-                user.LevelOfFitnessExperience = dto.LevelOfFitnessExperience;
                 user.NumberOfCaloriesPerDay = GetNumberOfCaloriesPerDay(user);
                 user.ProgramTypeName = dto.TypeName;
                 _context.SaveChanges();
@@ -64,7 +62,7 @@ namespace WebApi.Services
             else return null;
         }
 
-        public IEnumerable<User> GetUsersFiltered(SampleFilterModel filter)
+        public IEnumerable<User> GetUsersFiltered(FilterModel filter)
         {
             var properyInfo = typeof(User);
             var propery = properyInfo.GetProperty(filter.SortedField ?? "FirstName");

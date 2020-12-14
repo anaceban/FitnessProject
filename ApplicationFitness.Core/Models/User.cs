@@ -13,8 +13,6 @@ namespace ApplicationFitness.Domain.Models
         public int Height { get; set; }
         public int YearOfBirth { get; set; }
         public string Gender { get; set; }
-        public string PrimaryGoal { get; set; }
-        public string LevelOfFitnessExperience { get; set; }
 
         public List<UserSchedule> UserSchedules { get; set; }
         public List <Review> Reviews { get; set; } 

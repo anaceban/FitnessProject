@@ -40,7 +40,15 @@ namespace ApplicationFitness
                 .HasOne(r => r.ProgramSchedule)
                 .WithMany(p => p.Reviews)
                 .HasForeignKey(s => s.ScheduleId);
-            
+            modelBuilder.Entity<ProgramType>()
+                .HasOne(r => r.ProgramSchedule)
+                .WithOne(p => p.ProgramType)
+                .HasForeignKey<ProgramType>(s => s.ProgramScheduleId);
+            modelBuilder.Entity<ProgramSchedule>()
+                .HasOne(r => r.ProgramType)
+                .WithOne(p => p.ProgramSchedule)
+                .HasForeignKey<ProgramSchedule>(s => s.ProgramTypeId);
+
         }
 
         public DbSet<ProgramSchedule> Schedules { get; set; }

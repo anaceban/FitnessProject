@@ -22,7 +22,8 @@ namespace WebApi.Services
         ProgramType UpdateProgramType(int id, ProgramTypeDto dto);
 
         bool RemoveProgramTypeById(int id);
-        IEnumerable<ProgramType> GetTypesFiltered(SampleFilterModel filter);
+        IEnumerable<ProgramType> GetTypesFiltered(FilterModel filter);
         ProgramType GetProgramTypeById(int id);
+        ProgramType GetProgramTypeScheduleId(int id);
     }
 }

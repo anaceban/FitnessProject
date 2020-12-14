@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace WebApi.Sorting
 {
-    public class SampleFilterModel: FilterModelBase
+    public class FilterModel: FilterModelBase
     {
         public string Term { get; set; }
         public bool SortAsc { get; set; }
         public string SortedField { get; set; }
 
-        public SampleFilterModel() : base()
+        public FilterModel() : base()
         {
             Limit = 3;
         }

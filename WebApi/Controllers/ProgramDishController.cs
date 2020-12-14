@@ -19,19 +19,17 @@ namespace WebApi.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IDishService _dishService;
-        private readonly IProgramDayService _programDayService;
-        public ProgramDishController(IDishService dishService, IMapper mapper, IProgramDayService programDayService)
+        public ProgramDishController(IDishService dishService, IMapper mapper)
         {
             _dishService = dishService;
             _mapper = mapper;
-            _programDayService = programDayService;
         }
         [Authorize(Roles ="admin")]
         [HttpGet]
         [Route("getAll")]
-        public PagedCollectionResponse<DishDto> Get([FromQuery] SampleFilterModel filter)
+        public PagedCollectionResponse<DishDto> Get([FromQuery] FilterModel filter)
         {
-            var dishes = _dishService.GetProgramDishes(filter.Term);
+            var dishes = _dishService.GetProgramDishes(filter);
             var result = PagedCollectionResponse<DishDto>.Create(dishes, filter, (d) => _mapper.Map<DishDto>(d));
             return result;
         }

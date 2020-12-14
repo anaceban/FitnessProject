@@ -35,7 +35,7 @@ namespace WebApi.Services
         {
             var type = new CreateProgramTypeDto
             {
-                Name = dto.TypeName
+                Name = dto.TypeName,
             };
             _programTypeService.AddNewProgramType(type);
             var program = new ProgramSchedule
@@ -49,6 +49,10 @@ namespace WebApi.Services
             };
             _programScheduleRepository.Add(program);
             _programScheduleRepository.Save();
+            _programTypeService.UpdateProgramTypeDetails(program.ProgramTypeId, new UpdateProgramTypeDto 
+            { 
+                ScheduleId = program.Id
+            });
             return program;
         }
 
@@ -65,16 +69,13 @@ namespace WebApi.Services
         public bool RemoveProgramScheduleById(int id)
         {
             var program = _programScheduleRepository.Find(id);
-            _programTypeService.RemoveProgramTypeById(program.ProgramTypeId);
-            _context.SaveChanges();
-
+            
             if (program != null)
             {
-                _programScheduleRepository.Delete(program);
-                _context.SaveChanges();
+                _programTypeService.RemoveProgramTypeById(program.ProgramTypeId);
                 return true;
             }
-
+            
             else return false;
         }
 
@@ -129,12 +130,16 @@ namespace WebApi.Services
         public ProgramSchedule GetProgramForUser(User user)
         {
             var type = _programTypeService.GetProgramTypes().SingleOrDefault(t => t.Name == user.ProgramTypeName);
+            if(type== null)
+            {
+                return null;
+            }
             var schedule = _programScheduleRepository.Find(p => p.ProgramTypeId == type.Id);
             if (schedule != null)
                 return schedule;
             else return null;
         }
-        public IEnumerable<CreateProgramScheduleDto> GetProgramSchedules(SampleFilterModel filter)
+        public IEnumerable<CreateProgramScheduleDto> GetProgramSchedules(FilterModel filter)
         {
             var propertyInfo = typeof(ProgramSchedule);
             var result = new List<CreateProgramScheduleDto>();

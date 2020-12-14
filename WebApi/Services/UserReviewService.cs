@@ -43,11 +43,12 @@ namespace WebApi.Services
             return _repositoryReview.GetAll().ToList();
         }
 
-        public IList<GetReviewDto> GetReviewsFiltered(SampleFilterModel filter)
+        public IList<GetReviewDto> GetReviewsFiltered(FilterModel filter)
         {
             var result = new List<GetReviewDto>();
             var propertyInfo = typeof(Review);
             var property = propertyInfo.GetProperty(filter.SortedField ?? "Comment");
+
             if (string.IsNullOrEmpty(filter.Term))
             {
                 var allReviews = GetReviews().AsEnumerable();

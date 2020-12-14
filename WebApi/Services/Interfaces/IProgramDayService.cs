@@ -19,6 +19,7 @@ namespace WebApi.Services.Interfaces
         DishDay AddNewDishDay(DayDishDto dishDay);
         IEnumerable<int> GetProgramDaysIds();
 
-        IEnumerable<ProgramDay> GetProgramDays(SampleFilterModel filter);
+        IEnumerable<DayDto> GetProgramDays(FilterModel filter);
+        bool RemoveDayById(int id);
     }
 }

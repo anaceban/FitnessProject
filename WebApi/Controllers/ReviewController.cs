@@ -81,7 +81,7 @@ namespace WebApi.Controllers
         }
         [Authorize(Roles = "admin")]
         [HttpGet("filtered")]
-        public ActionResult<PagedCollectionResponse<GetReviewDto>> GetAllReviewsFiltered([FromQuery] SampleFilterModel filter)
+        public ActionResult<PagedCollectionResponse<GetReviewDto>> GetAllReviewsFiltered([FromQuery] FilterModel filter)
         {
             var reviews = _userReviewService.GetReviewsFiltered(filter);
             var result = PagedCollectionResponse<GetReviewDto>.Create(reviews, filter, (r) => _mapper.Map<GetReviewDto>(r));

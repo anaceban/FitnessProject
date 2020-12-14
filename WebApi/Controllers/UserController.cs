@@ -59,7 +59,7 @@ namespace WebApi.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpGet("sorted")]
-        public ActionResult<PagedCollectionResponse<UserDto>> Get([FromQuery] SampleFilterModel filter)
+        public ActionResult<PagedCollectionResponse<UserDto>> Get([FromQuery] FilterModel filter)
         {
             var users = _userService.GetUsersFiltered(filter);
             var adminIds = _userRoleService.GetAdminIds();

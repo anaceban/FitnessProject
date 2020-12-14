@@ -49,12 +49,20 @@ namespace WebApi.Controllers
         
         [HttpGet("allDays")]
         [Authorize(Roles = "admin")]
-        public ActionResult<PagedCollectionResponse<DayDto>> Get([FromQuery] SampleFilterModel filter)
+        public ActionResult<PagedCollectionResponse<DayDto>> Get([FromQuery] FilterModel filter)
         {
+
             var days = _programDayService.GetProgramDays(filter);
             var result = PagedCollectionResponse<DayDto>.Create(days, filter, (u) => _mapper.Map<DayDto>(u));
 
             return Ok(result);
+        }
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
+        public IActionResult Delete(int id)
+        {
+            var day = _programDayService.RemoveDayById(id);
+            return Ok(day);
         }
 
     }

@@ -30,7 +30,7 @@ namespace WebApi.Controllers
 
         [HttpGet("getAll")]
         [Authorize(Roles = "admin")]
-        public ActionResult<PagedCollectionResponse<CreateProgramScheduleDto>> Get([FromQuery] SampleFilterModel filter)
+        public ActionResult<PagedCollectionResponse<CreateProgramScheduleDto>> Get([FromQuery] FilterModel filter)
         {
             var programSchedules = _programScheduleService.GetProgramSchedules(filter);
             var result = PagedCollectionResponse<CreateProgramScheduleDto>.Create(programSchedules, filter, (p) => _mapper.Map<CreateProgramScheduleDto>(p));

@@ -146,7 +146,10 @@ namespace WebApi.Controllers
         {
             var user = _userManager.GetUserAsync(HttpContext.User);
             var programSchedule = _programScheduleService.GetProgramForUser(user.Result);
-
+            if(programSchedule == null)
+            {
+                return Ok();
+            }
             return Ok(_mapper.Map<ProgramScheduleDto>(programSchedule));
         }
 

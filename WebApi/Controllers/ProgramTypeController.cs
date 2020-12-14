@@ -38,7 +38,7 @@ namespace WebApi.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpGet("filtered")]
-        public ActionResult<PagedCollectionResponse<ProgramTypeDto>> Get([FromQuery] SampleFilterModel filter)
+        public ActionResult<PagedCollectionResponse<ProgramTypeDto>> Get([FromQuery] FilterModel filter)
         {
             var types = _programTypeService.GetTypesFiltered(filter);
             var result = PagedCollectionResponse<ProgramTypeDto>.Create(types, filter, (t) => _mapper.Map<ProgramTypeDto>(t));

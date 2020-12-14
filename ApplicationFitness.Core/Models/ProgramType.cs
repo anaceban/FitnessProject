@@ -7,6 +7,7 @@ namespace ApplicationFitness.Domain.Models
     public class ProgramType : BaseEntity
     {
         public string Name { get; set; }
-        public List<ProgramSchedule> ProgramSchedules { get; set; }
+        public int ProgramScheduleId { get; set; }
+        public ProgramSchedule ProgramSchedule { get; set; }
     }
 }
